@@ -1,0 +1,9 @@
+Functionality:
+    - make the query parameters dynamic! - in Indeed scraper
+    - get unfetched detailed LINKEDIN entries, and scrape the adDetails for those - in LinkedInDetailedScraper
+    
+Keep in mind:
+    - relate two ad tables to each other
+    - rewrite stuff in Typescript!
+    - Dockerize
+    - build a client
