@@ -1,20 +1,15 @@
 const axios = require('axios')
 const cheerio = require('cheerio')
 const fs = require('fs');
-const { connectToDB, closeDB } = require('../database/db');
+const adRepo = require('../dataLayer/adRepository');
 const { transformToTimestamp } = require('../utils/utils');
 const formatter = require('../utils/formatter');
 const constants = require('../constants');
-
-// let ADS_TO_SCRAPE = 10; // INPUT: set this to a desired value
-// let POSITION = 'Python Developer';
-// let COUNTRY = 'United States';
 
 async function scrapeAds(jobTitleRequested, jobCountryRequested, nOfAdsRequested) {
   let AD_OFFSET = 0;
   let scrapedAds = [];
   let currentJobBatch = 25;
-  console.log("Starting to scrape!\n")
   while (AD_OFFSET < nOfAdsRequested) {
     if (currentJobBatch == 0) {
       break;
@@ -67,12 +62,15 @@ async function scrapeAds(jobTitleRequested, jobCountryRequested, nOfAdsRequested
       listedDate = transformToTimestamp(listedDate);
 
       scrapedAds.push({
+        source: constants.LINKEDIN,
         jobLink: jobLink,
         jobTitle: formattedJobTitle,
         companyName: formattedCompanyName,
-        location: formattedLocation,
+        companyLocation: formattedLocation,
+        hireType: null,
+        jobDescription: null,
         salaryInfo: formattedSalaryInfo,
-        listedDate: listedDate
+        postedDate: listedDate
       });
     }
 
@@ -96,29 +94,6 @@ function writeIntoCSVfile(scrapedAds) {
     });
 }
 
-function storeAdsToDB(scrapedAds) {
-    const db = connectToDB();
-    
-    const createdDate = transformToTimestamp(new Date(Date.now()));
-
-    let queryValues = 'VALUES ';
-    scrapedAds.forEach(ad => {  
-        queryValues += '(' + `"${createdDate}","${createdDate}","${constants.LINKEDIN}","${ad.jobLink}","${ad.jobTitle}","${ad.companyName}","${ad.location}","${ad.salaryInfo}","${ad.listedDate}"),`;
-    });
-    queryValues = queryValues.slice(0, -1);
-
-    console.log("about to query the database")
-    try {
-        db.run(`INSERT INTO job_ads (created_at,updated_at,source,job_link,job_title,company_name,location,salary_info,posting_date)
-            ${queryValues};`
-        );
-    } catch (exception) {
-        console.log(exception);
-        throw exception('An exception occurred while inserting scraped ads into the DB!');
-    } finally {
-        closeDB(db);
-    }
-}
 async function doAscrape(jobTitleRequested, jobCountryRequested, nOfAdsRequested) {
     let scrapedAds = null
     try {
@@ -132,7 +107,7 @@ async function doAscrape(jobTitleRequested, jobCountryRequested, nOfAdsRequested
     }
 
     try {
-        storeAdsToDB(scrapedAds);
+        adRepo.storeAdsToDB(scrapedAds);
         return {
             statusCode: 200,
             message: 'Ads scraped and stored into the database successfully!'

@@ -4,6 +4,7 @@ const datefns = require("date-fns");
 let { getJobsList, release } = require('../node_modules/indeed-job-scraper/index');
 let { config } = require("indeed-job-scraper");
 
+const adRepo = require('../dataLayer/adRepository');
 const { connectToDB, closeDB } = require('../database/db');
 const formatter = require('../utils/formatter');
 const { getPostedDate4Indeed, transformToTimestamp } = require('../utils/utils');
@@ -53,18 +54,20 @@ function formatAd(ad) {
     postedDate = transformToTimestamp(postedDate);
 
     return {
+        source: constants.INDEED,
         jobLink: jobLink,
         jobTitle: jobTitle,
         companyName: companyName,
+        hireType: null,
         companyLocation: companyLocation,
         jobDescription: jobDescription,
-        salary: salary,
+        salaryInfo: salary,
         postedDate: postedDate
     }
 }
 
 async function doAscrape(jobTitle) {
-    getJobsList({
+    return getJobsList({
         query: jobTitle,
         ...JOB_SEARCH_PARAMETERS
         // radius // of search from the given location
@@ -76,40 +79,25 @@ async function doAscrape(jobTitle) {
         return Promise.reject({statusCode: 500, message: 'Error occurred while fetching job ads!'});
     })
     .then(formattedAds => {
-        const db = connectToDB();
-        
-        const createdDate = transformToTimestamp(new Date(Date.now()));
-    
-        let adsQueryValues = 'VALUES ';
-        let detailsQueryValues = 'VALUES ';
-        formattedAds.forEach(ad => {  
-            adsQueryValues += '(' + `"${createdDate}","${createdDate}","${constants.INDEED}","${ad.jobLink}","${ad.jobTitle}","${ad.companyName}","${ad.companyLocation}","${ad.salary}","${ad.postedDate}","TRUE","${createdDate}"),`;
-            detailsQueryValues += '(' + `"${createdDate}","${createdDate}","${ad.postedDate}","${ad.jobDescription}"),`
-        });
-        adsQueryValues = adsQueryValues.slice(0, -1);
-        detailsQueryValues = detailsQueryValues.slice(0, -1);
-    
-        let response = {
+        let responseObject = {
             statusCode: 200,
-            message: 'Successfully stored job ads to the database',
-        };
+            message: 'Ads scraped and stored into the database successfully!'
+        }
 
         try {
-            db.run(`INSERT INTO ad_details (created_at,updated_at,posting_date,ad_content)
-                ${detailsQueryValues};`
-            );
-            db.run(`INSERT INTO job_ads (created_at,updated_at,source,job_link,job_title,company_name,location,salary_info,posting_date,are_details_scraped,details_scraped_date)
-                ${adsQueryValues};`
-            );
-         } catch (exception) {
-            console.log(exception);
-            response.statusCode = 500;
-            response.message = 'An error occurred while attempting to store job ads to the database';
+            adRepo.storeAdsToDB(formattedAds);
+            adRepo.storeAdDetails(formattedAds);
+        } catch (exception) {
+            console.log('line 139.' + exception.message)
+            responseObject = {
+                statusCode: 500,
+                message: exception.message
+            }
         } finally {
-            closeDB(db);
             release;
-            return response;
-        } 
+        }
+        
+        return Promise.resolve(responseObject);
     });
 }
 
