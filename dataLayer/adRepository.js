@@ -9,18 +9,18 @@ function storeAds(scrapedAds) {
     let queryValues = 'VALUES ';
     scrapedAds.forEach(ad => {  
         queryValues += '(' + `"${createdDate}","${createdDate}","${ad.source}","${ad.jobLink}","${ad.jobTitle}",
-            "${ad.companyName}","${ad.companyLocation}","${ad.hireType}","${ad.salaryInfo}","${ad.postedDate}"),`;
+            "${ad.companyName}","${ad.companyLocation}","${ad.workLocation}","${ad.jobEngagement}","${ad.salaryInfo}","${ad.postedDate}"),`;
     });
     queryValues = queryValues.slice(0, -1);
 
     console.log("about to query the database")
     try {
-        db.run(`INSERT INTO job_ads (created_at,updated_at,source,job_link,job_title,company_name,location,hire_type,salary_info,posting_date)
+        db.run(`INSERT INTO job_ads (created_at,updated_at,source,job_link,job_title,company_name,company_location,work_location,job_engagement,salary_info,posting_date)
             ${queryValues};`
         );
     } catch (exception) {
         console.log(exception);
-        throw exception('An exception occurred while inserting scraped ads into the DB!');
+        throw 'An exception occurred while inserting scraped ads into the DB!';
     } finally {
         closeDB(db);
     }
@@ -32,18 +32,18 @@ function storeAdDetails(scrapedAdDetails) {
 
     let queryValues = 'VALUES ';
     scrapedAdDetails.forEach(ad => {  
-        queryValues += '(' + `"${createdDate}","${createdDate}","${ad.postedDate}","${ad.jobDescription}"),`
+        queryValues += '(' + `"${createdDate}","${createdDate}","${ad.postedDate}","${ad.jobDescription}","${ad.jobProps}"),`
     });
     queryValues = queryValues.slice(0, -1);
 
     console.log("about to query the database");
     try {
-        db.run(`INSERT INTO ad_details (created_at,updated_at,posting_date,ad_content)
+        db.run(`INSERT INTO ad_details (created_at,updated_at,posting_date,ad_content, job_props)
             ${queryValues};`
         );
      } catch (exception) {
         console.log(exception);
-        throw exception('An exception occurred while inserting scraped ads into the DB!');
+        throw 'An exception occurred while inserting scraped ads into the DB!';
     } finally {
         closeDB(db);
     }
