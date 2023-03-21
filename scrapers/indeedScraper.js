@@ -58,8 +58,9 @@ function formatAd(ad) {
         jobLink: jobLink,
         jobTitle: jobTitle,
         companyName: companyName,
-        hireType: null,
+        jobEngagement: null,
         companyLocation: companyLocation,
+        workLocation: workLocation, // TODO: check if this data is avaliable!
         jobDescription: jobDescription,
         salaryInfo: salary,
         postedDate: postedDate
@@ -104,3 +105,21 @@ async function doAscrape(jobTitle) {
 module.exports = {
     doAscrape: doAscrape
 }
+
+/*  IF I WANT TO MAKE MY OWN INDEED SCRAPER THIS IS THE WAY:
+let jobTitle = formatQueryWord(requestedJobTitle, ' ', '%20');
+let jobLocation = formatQueryWord(requestedJobLocation, ' ', '%20');
+jobLocation = formatQueryWord(jobLocation, ',', '%2C');
+
+let URL = `https://www.indeed.com/jobs?q=${jobTitle}&l=${jobLocation}&start=${currentStart}`;
+
+jobSelector -> '.jobsearch-ResultsList > li'
+jobLink -> '.jobTitle > a[href]'
+jobTitle -> 'span > .title'
+companyName -> '.companyOverviewLink'
+companyLink -> '.companyOverviewLink [href]'
+companyLocation -> '.companyLocation' + '.companyLocation--extras'
+salaryInfo -> '.salary-snippet-container > .attribute_snippet text'
+jobProps -> '.salaryOnly > metadata > attribute_snippet text'
+postedDate -> '.result-footer > .date'
+*/

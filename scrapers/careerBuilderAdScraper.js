@@ -40,7 +40,7 @@ async function scrapeAds(workFromHome, jobTitleRequested, nOfAdsRequested) {
             response = await axios(URL);
         } catch(exception) {
             console.log(exception.message);
-            throw exception(`An exception occurred while accessing the url=${URL}!`);
+            throw `An exception occurred while accessing the url=${URL}!`;
         }
 
         let html = response.data;
@@ -70,7 +70,7 @@ async function scrapeAds(workFromHome, jobTitleRequested, nOfAdsRequested) {
             jobDetailsContainer.forEach(member => {
                 jobDetails.push(member.children.pop().data);
             });
-            let [companyName, companyLocation, hireType] = extractJobDetails(jobDetails);
+            let [companyName, companyLocation, jobEngagement] = extractJobDetails(jobDetails);
 
             let jobLink = 'https://www.careerbuilder.com' + jobListings[i]?.attributes.find(attr => attr['name'] == 'href')['value'].trim();
             let jobTitle = jobListings[i]?.attributes.find(attr => attr['name'] == 'title')['value'].trim();
@@ -80,9 +80,10 @@ async function scrapeAds(workFromHome, jobTitleRequested, nOfAdsRequested) {
                 jobLink: jobLink,
                 jobTitle: jobTitle,
                 companyName: companyName,
-                hireType: hireType,
+                jobEngagement: jobEngagement,
                 jobDescription: null,
                 companyLocation: companyLocation,
+                workLocation: null,  // TODO: check if this data is avaliable!
                 salaryInfo: null,
                 postedDate: publishedTimeStamp
               });

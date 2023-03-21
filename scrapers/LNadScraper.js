@@ -1,5 +1,5 @@
-const axios = require('axios')
-const cheerio = require('cheerio')
+const axios = require('axios');
+const cheerio = require('cheerio');
 const fs = require('fs');
 const adRepo = require('../dataLayer/adRepository');
 const { transformToTimestamp } = require('../utils/utils');
@@ -15,7 +15,7 @@ async function scrapeAds(jobTitleRequested, jobCountryRequested, nOfAdsRequested
       break;
     }
 
-    let URL = `https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=${formatter.formatQueryWord(jobTitleRequested, '%2B')}&location=${formatter.formatQueryWord(jobCountryRequested, '%2B')}&locationId=&geoId=103644278&sortBy=R&f_TPR=&f_JT=F%2CP%2CC&f_E=3%2C4&start=${AD_OFFSET}`;
+    let URL = `https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=${formatter.formatQueryWord(jobTitleRequested, ' ', '%2B')}&location=${formatter.formatQueryWord(jobCountryRequested, ' ', '%2B')}&locationId=&geoId=103644278&sortBy=R&f_TPR=&f_JT=F%2CP%2CC&f_E=3%2C4&start=${AD_OFFSET}`;
     console.log("About to send a request...")
 
     let response = null;
@@ -23,7 +23,7 @@ async function scrapeAds(jobTitleRequested, jobCountryRequested, nOfAdsRequested
         response = await axios(URL);
     } catch(exception) {
         console.log(exception.message);
-        throw exception(`An exception occurred while accessing the url=${URL}!`);
+        throw `An exception occurred while accessing the url=${URL}!`;
     }
 
     console.log("Scraped " + AD_OFFSET + " ads so far.\n");
@@ -67,7 +67,8 @@ async function scrapeAds(jobTitleRequested, jobCountryRequested, nOfAdsRequested
         jobTitle: formattedJobTitle,
         companyName: formattedCompanyName,
         companyLocation: formattedLocation,
-        hireType: null,
+        workLocation: null, // TODO: check if this data is avaliable!
+        jobEngagement: null,
         jobDescription: null,
         salaryInfo: formattedSalaryInfo,
         postedDate: listedDate
@@ -84,7 +85,7 @@ async function scrapeAds(jobTitleRequested, jobCountryRequested, nOfAdsRequested
 }
 
 function writeIntoCSVfile(scrapedAds) {
-    let outputFileName = `./jobAds-${formatter.formatQueryWord(jobTitleRequested, '')}_${formatter.formatQueryWord(jobCountryRequested, '')}.csv`;
+    let outputFileName = `./jobAds-${formatter.formatQueryWord(jobTitleRequested, ' ', '')}_${formatter.formatQueryWord(jobCountryRequested, ' ', '')}.csv`;
     let headline = 'Job Link,Job Title,Company Name,Location,Salary,Listed Date\n';
     fs.appendFileSync(outputFileName, headline);
 
