@@ -12,6 +12,7 @@ function createDBschema(db) {
             job_title TEXT,
             company_name TEXT,
             location TEXT,
+            hire_type TEXT,
             salary_info TEXT,
             posting_date INTEGER DEFAULT NULL,
             are_details_scraped BOOLEAN DEFAULT FALSE,
