@@ -7,6 +7,33 @@ const constants = require('../constants');
 //     MONTH
 // }
 
+function getPostedDate4SimplyHired(textContainingPostedAgo) {
+    if (!textContainingPostedAgo || textContainingPostedAgo == '') return new Date(null);
+    if (textContainingPostedAgo.trim().toLowerCase() == 'today') {
+        return new Date(Date.now());
+    } else {
+        let numberOfDaysText = textContainingPostedAgo.substring(0, textContainingPostedAgo.indexOf('d'));
+        let postedAgo = parseInt(numberOfDaysText);
+
+        return datefns.addDays(Date.now(), -postedAgo);
+    }
+}
+
+function getPostedDate4CareerBuilder(textContainingPostedAgo) {
+    const [postedAgoText, timeframe, _] = textContainingPostedAgo.trim().split(' ');
+    const postedAgo = parseInt(postedAgoText);
+    if (textContainingPostedAgo.trim().toLowerCase() == 'today') {
+        return new Date(Date.now());
+    } else if (!isNaN(postedAgo)) {
+        let timeframeCheck = timeframe.trim().toLowerCase();
+        if (timeframeCheck.includes('day')) return datefns.addDays(Date.now(), -postedAgo);
+        else if (timeframeCheck.includes('month')) return datefns.addMonths(Date.now(), -postedAgo);
+        else return new Date(null);
+    }
+
+    return new Date(null);
+}
+
 function getPostedDate4LinkedIn(textContainingPostedAgo) {
     const [postedAgoText, timeframe, _] = textContainingPostedAgo.trim().split(' ')
     const postedAgo = parseInt(postedAgoText);
@@ -27,13 +54,33 @@ function getPostedDate4LinkedIn(textContainingPostedAgo) {
     }
 }
 
-function getPostedDate4Indeed(postedAgo) {
-    let postedDaysAgo = parseInt(postedAgo.split(' ')[1]);
+function getPostedDate4Indeed(textContainingPostedAgo) {
+    let postedDaysAgo = parseInt(textContainingPostedAgo.split(' ')[1]);
 
     let now = Date.now();
     let postedDate = datefns.addDays(now, -postedDaysAgo);
 
     return postedDate;
+}
+
+function getPostedDate4CareerJet(textContainingPostedAgo) {
+    const [postedAgoText, timeframe, _] = textContainingPostedAgo.trim().split(' ')
+    const postedAgo = parseInt(postedAgoText);
+
+    if (isNaN(postedAgo)) return new Date(null);
+
+    if (timeframe.includes('hour')) {
+        return datefns.addHours(Date.now(), -postedAgo);    // TODO: make sure that the timezones match!
+    }
+    else if (timeframe.includes('day')) {
+        return datefns.addDays(Date.now(), -postedAgo);
+    }
+    else if (timeframe.includes('month')) {
+        return datefns.addMonths(Date.now(), -postedAgo);
+    }
+    else {
+        return new Date(null);
+    }
 }
 
 function getNumberOfApplicants(textContainingNumberOfApplicants) {
@@ -62,8 +109,11 @@ function transformToTimestamp(date)  {
 }
 
 module.exports = {
+    getPostedDate4CareerBuilder: getPostedDate4CareerBuilder,
+    getPostedDate4SimplyHired: getPostedDate4SimplyHired,
     getPostedDate4LinkedIn: getPostedDate4LinkedIn,
     getPostedDate4Indeed: getPostedDate4Indeed,
+    getPostedDate4CareerJet: getPostedDate4CareerJet,
     getNumberOfApplicants: getNumberOfApplicants,
     transformToTimestamp: transformToTimestamp
 }

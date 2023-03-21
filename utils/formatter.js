@@ -1,6 +1,6 @@
-function formatQueryWord(queryWord, delimiter) {
+function formatQueryWord(queryWord, splitOn, delimiter) {
     let totalQueryWord = '';
-    let splitQueryWord = queryWord.split(' ');
+    let splitQueryWord = queryWord.split(splitOn);
     splitQueryWord.forEach((word, index) => {
         totalQueryWord += word;
         if (index != splitQueryWord.length - 1) {
