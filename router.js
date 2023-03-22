@@ -17,6 +17,8 @@ const jobsInNetworkAdScraper = require('./scrapers/jobsInNetworkAdScraper');
 const qreerAdScraper = require('./scrapers/qreerAdScraper');
 const arbeitNowAdScraper = require('./scrapers/arbeitNowAdScraper');
 const cvLibraryAdScraper = require('./scrapers/cvLibraryAdScraper');
+const euresAdScraper = require('./scrapers/euresAdScraper');
+const euroEngineerJobs = require('./scrapers/euroEngineerJobs');
 
 router.post('/scrape-linkedin-ads', (req, res) => {
     lnAdScraper.doAscrape(req.body.jobTitle, req.body.location, req.body.nOfAds).then(responseObj => {
@@ -111,6 +113,18 @@ router.post('/scrape-arbeitnow-ads', (req, res) => {
 
 router.post('/scrape-cvlibrary-ads', (req, res) => {
     cvLibraryAdScraper.doAscrape(req.body.jobTitle, req.body.nOfAds).then(responseObj => {
+        res.status(responseObj.statusCode).json(responseObj.message);
+    });
+});
+
+router.post('/scrape-eures-ads', (req, res) => {
+    euresAdScraper.doAscrape(req.body.jobTitle, req.body.nOfAds).then(responseObj => {
+        res.status(responseObj.statusCode).json(responseObj.message);
+    });
+});
+
+router.post('/scrape-euroengineer-ads', (req, res) => {
+    euroEngineerJobs.doAscrape(req.body.jobTitle, req.body.nOfAds).then(responseObj => {
         res.status(responseObj.statusCode).json(responseObj.message);
     });
 });
