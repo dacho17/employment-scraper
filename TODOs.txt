@@ -1,9 +1,9 @@
-Functionality:
-    - make the query parameters dynamic! - in Indeed scraper
-    - get unfetched detailed LINKEDIN entries, and scrape the adDetails for those - in LinkedInDetailedScraper
-    
-Keep in mind:
-    - relate two ad tables to each other
-    - rewrite stuff in Typescript!
-    - Dockerize
-    - build a client
+Continue with refactoring and to Typescript. I need new eyes
+0. Get rid of the magic values. Make a designated constants file.
+1. Rewrite the solution in Typescript
+2. Structure the solution in 3 layers - DataLayer, ServiceLayer, Controller/Router Layer
+3. Make the code generic, there is a lot of shared functionalities. Divide responsibilities.
+4. Make the solution interactive with multiple Databases through interface or sth 
+5. Consider how to structure the database better - what are the commonalities? shared properties between ads?
+6. Dockerize the application
+7. Build a client???
