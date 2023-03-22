@@ -9,13 +9,13 @@ function storeAds(scrapedAds) {
     let queryValues = 'VALUES ';
     scrapedAds.forEach(ad => {  
         queryValues += '(' + `"${createdDate}","${createdDate}","${ad.source}","${ad.jobLink}","${ad.jobTitle}",
-            "${ad.companyName}","${ad.companyLocation}","${ad.workLocation}","${ad.jobEngagement}","${ad.salaryInfo}","${ad.postedDate}"),`;
+            "${ad.companyName}","${ad.companyLocation}","${ad.companyLink}","${ad.workLocation}","${ad.jobEngagement}","${ad.salaryInfo}","${ad.postedDate}"),`;
     });
     queryValues = queryValues.slice(0, -1);
 
     console.log("about to query the database")
     try {
-        db.run(`INSERT INTO job_ads (created_at,updated_at,source,job_link,job_title,company_name,company_location,work_location,job_engagement,salary_info,posting_date)
+        db.run(`INSERT INTO job_ads (created_at,updated_at,source,job_link,job_title,company_name,company_location,company_link,work_location,job_engagement,salary_info,posting_date)
             ${queryValues};`
         );
     } catch (exception) {
@@ -41,11 +41,11 @@ function storeAdDetails(scrapedAdDetails) {
         db.run(`INSERT INTO ad_details (created_at,updated_at,posting_date,ad_content, job_props)
             ${queryValues};`
         );
+        closeDB(db);
      } catch (exception) {
         console.log(exception);
-        throw 'An exception occurred while inserting scraped ads into the DB!';
-    } finally {
         closeDB(db);
+        throw 'An exception occurred while inserting scraped ads into the DB!';
     }
 }
 

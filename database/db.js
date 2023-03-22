@@ -12,6 +12,7 @@ function createDBschema(db) {
             job_title TEXT,
             company_name TEXT,
             company_location TEXT,
+            company_link TEXT,
             work_location TEXT,
             job_engagement TEXT,
             salary_info TEXT,
