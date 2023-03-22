@@ -1,11 +1,7 @@
-let fs = require('fs');
-let path = require('path');
-const datefns = require("date-fns");
 let { getJobsList, release } = require('../node_modules/indeed-job-scraper/index');
 let { config } = require("indeed-job-scraper");
 
 const adRepo = require('../dataLayer/adRepository');
-const { connectToDB, closeDB } = require('../database/db');
 const formatter = require('../utils/formatter');
 const { getPostedDate4Indeed, transformToTimestamp } = require('../utils/utils');
 const constants = require('../constants');

@@ -1,7 +1,5 @@
 const browserAPI = require('../browserAPI');
-const constants = require('../constants');
 const adRepository = require('../dataLayer/adRepository');
-const formatter = require('../utils/formatter');
 const utils = require('../utils/utils');
 
 async function scrapePartOfAds(jobAdElements, scrapedAds) {

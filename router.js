@@ -10,6 +10,7 @@ const simplyHiredAdScraper = require('./scrapers/simplyHiredAdScraper');
 const careerJetScraper = require('./scrapers/careerJetScraper');
 const jobFluentAdScraper = require('./scrapers/jobFluentAdScraper');
 const wwrAdScraper = require('./scrapers/wwrAdScraper');
+const adzunaAdScraper = require('./scrapers/adzunaAdScraper');
 
 router.post('/scrape-linkedin-ads', (req, res) => {
     lnAdScraper.doAscrape(req.body.jobTitle, req.body.location, req.body.nOfAds).then(responseObj => {
@@ -62,6 +63,12 @@ router.post('/scrape-jobfluent-both', (req, res) => {
 
 router.get('/scrape-weworkremotely-ads', (req, res) => {
     wwrAdScraper.doAscrape().then(responseObj => {
+        res.status(responseObj.statusCode).json(responseObj.message);
+    });
+});
+
+router.post('/scrape-adzuna-ads', (req, res) => {
+    adzunaAdScraper.doAscrape(req.body.jobTitle, req.body.nOfPages).then(responseObj => {
         res.status(responseObj.statusCode).json(responseObj.message);
     });
 });
