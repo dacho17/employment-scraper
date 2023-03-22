@@ -12,6 +12,7 @@ const jobFluentAdScraper = require('./scrapers/jobFluentAdScraper');
 const wwrAdScraper = require('./scrapers/wwrAdScraper');
 const adzunaAdScraper = require('./scrapers/adzunaAdScraper');
 const tybaAdScraper = require('./scrapers/tybaAdScraper');
+const noFluffJobsAdScraper = require('./scrapers/noFluffJobsAdScraper');
 
 router.post('/scrape-linkedin-ads', (req, res) => {
     lnAdScraper.doAscrape(req.body.jobTitle, req.body.location, req.body.nOfAds).then(responseObj => {
@@ -76,6 +77,12 @@ router.post('/scrape-adzuna-ads', (req, res) => {
 
 router.post('/scrape-tyba-ads', (req, res) => {
     tybaAdScraper.doAscrape(req.body.jobTitle, req.body.nOfAds).then(responseObj => {
+        res.status(responseObj.statusCode).json(responseObj.message);
+    });
+});
+
+router.post('/scrape-nofluffjobs-ads', (req, res) => {
+    noFluffJobsAdScraper.doAscrape(req.body.jobTitle, req.body.nOfAds).then(responseObj => {
         res.status(responseObj.statusCode).json(responseObj.message);
     });
 });
