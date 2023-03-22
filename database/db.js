@@ -9,27 +9,19 @@ function createDBschema(db) {
             updated_at INTEGER DEFAULT NULL,
             source TEXT,
             job_link TEXT,
+            are_details_scraped BOOLEAN DEFAULT FALSE,
+            details_scraped_date INTEGER DEFAULT NULL
             job_title TEXT,
+            posting_date INTEGER DEFAULT NULL,
             company_name TEXT,
             company_location TEXT,
             company_link TEXT,
             work_location TEXT,
             job_engagement TEXT,
             salary_info TEXT,
-            posting_date INTEGER DEFAULT NULL,
-            are_details_scraped BOOLEAN DEFAULT FALSE,
-            details_scraped_date INTEGER DEFAULT NULL
-        );`);
-
-        db.run(`
-        CREATE TABLE IF NOT EXISTS ad_details (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            created_at INTEGER DEFAULT NULL,
-            updated_at INTEGER DEFAULT NULL,
-            posting_date INTEGER DEFAULT NULL,
             n_of_applicants TEXT,
             ad_content TEXT,
-            job_props TEXT
+            additional_data TEXT
         );`);
     });
 }
