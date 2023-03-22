@@ -84,44 +84,6 @@ async function scrapeAds(jobTitleRequested, jobCountryRequested, nOfAdsRequested
   return scrapedAds;
 }
 
-function writeIntoCSVfile(scrapedAds) {
-    let outputFileName = `./jobAds-${formatter.formatQueryWord(jobTitleRequested, ' ', '')}_${formatter.formatQueryWord(jobCountryRequested, ' ', '')}.csv`;
-    let headline = 'Job Link,Job Title,Company Name,Location,Salary,Listed Date\n';
-    fs.appendFileSync(outputFileName, headline);
-
-    scrapedAds.forEach(ad => {
-      let adLine = `${ad.jobLink},${ad.jobTitle},${ad.companyName},${ad.location},${ad.salaryInfo},${ad.listedDate}\n`
-      fs.appendFileSync(outputFileName, adLine);
-    });
-}
-
-async function doAscrape(jobTitleRequested, jobCountryRequested, nOfAdsRequested) {
-    let scrapedAds = null
-    try {
-       scrapedAds = await scrapeAds(jobTitleRequested, jobCountryRequested, nOfAdsRequested);
-    } catch (exception) {
-      console.log('line 125.' + exception.message)
-      return {
-          statusCode: 500,
-          message: exception.message
-      }
-    }
-
-    try {
-        adRepo.storeAdsToDB(scrapedAds);
-        return {
-            statusCode: 200,
-            message: 'Ads scraped and stored into the database successfully!'
-        }
-      } catch (exception) {
-        console.log('line 139.' + exception.message)
-        return {
-            statusCode: 500,
-            message: exception.message
-        }
-    }
-}
-
 module.exports = {
-  doAscrape: doAscrape
+    scrapeAds: scrapeAds
 }

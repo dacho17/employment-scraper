@@ -1,0 +1,21 @@
+module.exports = {
+    lnAdScraper: require('./LNadScraper'),
+    lnDetailedScraper: require('./LNdetailedScraper'),
+    indeedScraper: require('./indeedScraper'),
+    careerBuilderAdScraper: require('./careerBuilderAdScraper'),
+    snaphuntDetailedScraper: require('./snaphuntDetailedScraper'), 
+    simplyHiredAdScraper: require('./simplyHiredAdScraper'),
+    careerJetScraper: require('./careerJetScraper'),
+    jobFluentAdScraper: require('./jobFluentAdScraper'),
+    wwrAdScraper: require('./wwrAdScraper'),
+    adzunaAdScraper: require('./adzunaAdScraper'),
+    tybaAdScraper: require('./tybaAdScraper'),
+    noFluffJobsAdScraper: require('./noFluffJobsAdScraper'),
+    jobsInNetworkAdScraper: require('./jobsInNetworkAdScraper'),
+    qreerAdScraper: require('./qreerAdScraper'),
+    arbeitNowAdScraper: require('./arbeitNowAdScraper'),
+    cvLibraryAdScraper: require('./cvLibraryAdScraper'),
+    euresAdScraper: require('./euresAdScraper'),
+    euroEngineerJobs: require('./euroEngineerJobs'),
+    scraperService: require('./scraperService')
+}

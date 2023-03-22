@@ -49,32 +49,6 @@ async function scrapeAds(requestedJobTitle, nOfAdsToBeScraped) {
     return scrapedAds;
 }
 
-async function doAscrape(requestedJobTitle, nOfRequestedAds) {
-    let scrapedAds = null
-    try {
-       scrapedAds = await scrapeAds(requestedJobTitle, nOfRequestedAds);
-    } catch (exception) {
-      console.log(exception.message);
-      return {
-          statusCode: 500,
-          message: exception.message
-      }
-    }
-
-    try {
-        adRepository.storeAdsToDB(scrapedAds);
-        return {
-            statusCode: 200,
-            message: 'Ads scraped and stored into the database successfully!'
-        }
-      } catch (exception) {
-        return {
-            statusCode: 500,
-            message: exception.message
-        }
-    }
-}
-
 module.exports = {
-    doAscrape: doAscrape
+    scrapeAds: scrapeAds
 }

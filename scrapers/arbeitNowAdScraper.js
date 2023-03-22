@@ -1,10 +1,12 @@
 const browserAPI = require('../browserAPI');
-const adRepository = require('../dataLayer/adRepository');
-const utils = require('../utils/utils');
 const formatter = require('../utils/formatter');
 
+const ARBEITNOW_DELIMITER = '+';
+const ARBEITNOW_JOB_ADS = '#results > li';
+const ARBEITNOW_JOB_LINK = 'div > .items-center > div > a';
+const ARBEITNOW_SOURCE = 'ARBEITNOW';
 async function scrapeAds(requestedJobTitle, nOfAdsToBeScraped) {
-    let formattedJobTitle = formatter.formatQueryWord(requestedJobTitle, ' ', '+');
+    let formattedJobTitle = formatter.formatQueryWord(requestedJobTitle, ' ', ARBEITNOW_DELIMITER);
     let currentPage = 1;
 
     const browser = await browserAPI.runBrowser();
@@ -14,26 +16,13 @@ async function scrapeAds(requestedJobTitle, nOfAdsToBeScraped) {
         let url = `https://www.arbeitnow.com/?search=${formattedJobTitle}&page=${currentPage}`;
         let page = await browserAPI.openPage(browser, url);
 
-        let jobAdElements = await page.$$('#results > li');
+        let jobAdElements = await page.$$(ARBEITNOW_JOB_ADS);
         console.log("about to scrape " + url + ". " + jobAdElements.length + " job ads have been detected on the page");
         for (let i = 0; i < jobAdElements.length; i++) {
 
-            let jobLink = await jobAdElements[i].$eval('div > .items-center > div > a', el => el.getAttribute('href'));
+            let jobLink = await jobAdElements[i].$eval(ARBEITNOW_JOB_LINK, el => el.getAttribute('href'));
 
-            scrapedAds.push({
-                source: 'ARBEIT_NOW',
-                jobLink: jobLink.trim(),
-                jobTitle: null,
-                companyName: null,
-                companyLocation: null,
-                companyLink: null,
-                workLocation: null,
-                jobEngagement: null,
-                jobDescription: null,
-                salaryInfo: null,
-                postedDate: null,
-                jobProps: null
-            });
+            scrapedAds.push(new JobAd(currentTimestap, currentTimestap, ARBEITNOW_SOURCE, jobLink));   // the rest is null
         }
 
         if (!jobAdElements || jobAdElements.length == 0) break; 
@@ -48,32 +37,6 @@ async function scrapeAds(requestedJobTitle, nOfAdsToBeScraped) {
     return scrapedAds;
 }
 
-async function doAscrape(requestedJobTitle, nOfRequestedAds) {
-    let scrapedAds = null
-    try {
-       scrapedAds = await scrapeAds(requestedJobTitle, nOfRequestedAds);
-    } catch (exception) {
-      console.log(exception.message);
-      return {
-          statusCode: 500,
-          message: exception.message
-      }
-    }
-
-    try {
-        adRepository.storeAdsToDB(scrapedAds);
-        return {
-            statusCode: 200,
-            message: 'Ads scraped and stored into the database successfully!'
-        }
-      } catch (exception) {
-        return {
-            statusCode: 500,
-            message: exception.message
-        }
-    }
-}
-
 module.exports = {
-    doAscrape: doAscrape
+    scrapeAds: scrapeAds
 }
