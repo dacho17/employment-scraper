@@ -1,7 +1,9 @@
-import adRepository from "../dataLayer/repositories/adRepository";
+import Constants from "../constants.js";
+import { JobAd } from "../dataLayer/models/jobAd.js";
+import adRepository from "../dataLayer/repositories/adRepository.js";
 
 async function scrape(params, scraperFunc) {
-    let scrapedAds = null
+    let scrapedAds: JobAd[] | null = null
     try {
        scrapedAds = await scraperFunc(...params);
     } catch (exception) {
@@ -12,12 +14,18 @@ async function scrape(params, scraperFunc) {
       }
     }
 
-    console.log(scrapedAds[0]);
+    if (scrapedAds?.length == 0) {
+        return {
+            statusCode: 200,
+            message: Constants.NO_ADS_FOUND_TO_BE_SCRAPED_MESSAGE
+        }
+    }
+
     try {
         await adRepository.storeAds(scrapedAds);
         return {
             statusCode: 200,
-            message: 'Ads scraped and stored into the database successfully!'
+            message: Constants.ADS_SCRAPED_SUCCESSFULLY
         }
       } catch (exception) {
         return {

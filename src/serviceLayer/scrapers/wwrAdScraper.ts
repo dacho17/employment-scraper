@@ -1,39 +1,34 @@
-import Browser from "../../browserAPI";
-import Constants from "../../constants";
-import { AdSource } from "../../dataLayer/enums/adSource";
-import { JobAd } from '../../dataLayer/models/jobAd';
-import Utils from "../../utils/utils";
+import Browser from '../../browserAPI.js';
+import Constants from '../../constants.js';
+import { AdSource } from '../../dataLayer/enums/adSource.js';
+import { JobAd } from '../../dataLayer/models/jobAd.js';
+import Utils from '../../utils/utils.js';
 
 
-async function scrapePartOfAds(jobAdElements, scrapedAds: JobAd[]) {
-    let jobLink = null;
-    const newAd: JobAd = {
-        createdDate: null,
-        updatedDate: null,
-        source: null,
-        jobLink: null
-    };
+async function storeLinksInScrapedAds(jobAdElements, page, scrapedAds: JobAd[]) {
     for (let j = 0; j < jobAdElements.length; j++) {
-        jobLink = await jobAdElements[j].evaluate(el => el.getAttribute(Constants.HREF_SELECTOR));
-        jobLink = 'https://weworkremotely.com' + jobLink.trim();
+        let jobLink = await page.evaluate((el, selector) => el.getAttribute(selector), jobAdElements[j], Constants.HREF_SELECTOR);
+        jobLink = Constants.WE_WORK_REMOTELY_URL + jobLink.trim();
 
         const currentTimestap = Utils.transformToTimestamp((new Date(Date.now())).toString());
-        newAd.createdDate = currentTimestap;
-        newAd.updatedDate = currentTimestap;
-        newAd.source = AdSource.WE_WORK_REMOTELY;
-        newAd.jobLink = jobLink;
+        const newAd: JobAd = {
+            createdDate: currentTimestap,
+            updatedDate: currentTimestap,
+            source: AdSource.WE_WORK_REMOTELY,
+            jobLink: jobLink
+        };
         scrapedAds.push(newAd);
     }
 }
 
 export default async function scrapeAds(): Promise<JobAd[]> {
-    const browser = await (new Browser()).run();
-    const url = 'https://weworkremotely.com/remote-jobs/';
-    await browser.openPage(url);
+    const browser = await Browser.run();
+    const url = `${Constants.WE_WORK_REMOTELY_URL}/remote-jobs/`;
+    let page = await Browser.openPage(browser, url);
 
     // scrape directly from the main page those who do not have .view-all. Otherwise access the separate urls and scrape from there
     const showAllJobsUrls: string[] = [];
-    const jobSectionElements = await browser.page.$$(Constants.WE_WORK_REMOTELY_JOB_SECTION_SELECTOR);
+    const jobSectionElements = await page.$$(Constants.WE_WORK_REMOTELY_JOB_SECTION_SELECTOR);
     const sectionsToBeScrapedFromMain = [];
     let jobUrlElement = null;
     let newUrl: string | null = null;
@@ -43,41 +38,37 @@ export default async function scrapeAds(): Promise<JobAd[]> {
             sectionsToBeScrapedFromMain.push(i);
             continue;
         }
-        newUrl = 'https://weworkremotely.com' + await jobUrlElement.evaluate(el => el.getAttribute(Constants.HREF_SELECTOR));
+        newUrl = Constants.WE_WORK_REMOTELY_URL + await page.evaluate((el, selector) => el.getAttribute(selector), jobUrlElement, Constants.HREF_SELECTOR);
         showAllJobsUrls.push(newUrl.trim());
     }
     console.log(showAllJobsUrls.length + " additional job pages will be scraped.");     // scraping the pages other than the main one (the ones with higher number of ads)
 
     // scraping the main page
-    const jobAdsOnMainPage = [];
-    const allJobSections = await browser.page.$$(Constants.WE_WORK_REMOTELY_JOB_SECTION_SELECTOR);
-    let jobAdElements = [];
+    const scrapedAds: JobAd[] = [];
+    const allJobSections = await page.$$(Constants.WE_WORK_REMOTELY_JOB_SECTION_SELECTOR);
+
     for (let i = 0; i < sectionsToBeScrapedFromMain.length; i++) {
         // let jobSectionFromMainPage = await page.$(`.jobs-container > .jobs:nth-child(${sectionsToBeScrapedFromMain[i].toString()})`); //   > article > ul
-        jobAdElements = await allJobSections[sectionsToBeScrapedFromMain[i]].$$(Constants.WE_WORK_REMOTELY_JOBLINKS_SELECTOR);
-        jobAdsOnMainPage.push(...jobAdElements);
+        const jobAdElements = await allJobSections[sectionsToBeScrapedFromMain[i]].$$(Constants.WE_WORK_REMOTELY_JOBLINKS_SELECTOR);
+        await storeLinksInScrapedAds(jobAdElements, page, scrapedAds);
+        
     }
-    console.log(jobAdsOnMainPage.length + " jobs have been found on the main page");
-
-    console.log("starting to scrape the main page");
-    const scrapedAds: JobAd[] = [];
-    await scrapePartOfAds(jobAdsOnMainPage, scrapedAds);
-    console.log(scrapedAds.length + ' jobs have been scraped from the main page');
+    console.log(scrapedAds.length + " jobs have been found on the main page");
 
     console.log("starting to scrape separate pages");
-    jobAdElements = null;
     for (let i = 0; i < showAllJobsUrls.length; i++) {
-        await browser.openPage(showAllJobsUrls[i]);
+        page = await Browser.openPage(browser, showAllJobsUrls[i]);
 
-        jobAdElements = await browser.page.$$(Constants.WE_WORK_REMOTELY_JOBLINKS_SELECTOR_TWO); // not the first and the last one
+        const jobAdElements = await page.$$(Constants.WE_WORK_REMOTELY_JOBLINKS_SELECTOR_TWO); // not the first and the last one
         jobAdElements.shift();
         jobAdElements.pop();
         console.log(jobAdElements.length + ' jobs found on the page ' + showAllJobsUrls[i]);
-        await scrapePartOfAds(jobAdElements, scrapedAds);
+        await storeLinksInScrapedAds(jobAdElements, page, scrapedAds);
     }
 
     console.log(scrapedAds.length + " jobs have been scraped in total.");
 
-    await browser.closeBrowser();
+    await Browser.close(browser);
+    console.log(scrapedAds[0]);
     return scrapedAds;
 }

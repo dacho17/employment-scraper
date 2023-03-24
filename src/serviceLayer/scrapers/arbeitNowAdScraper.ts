@@ -1,50 +1,41 @@
-import Browser from '../../browserAPI';
-import Constants from '../../constants';
-import { AdSource } from '../../dataLayer/enums/adSource';
-import { JobAd } from '../../dataLayer/models/jobAd';
-import Utils from '../../utils/utils';
+import Browser from '../../browserAPI.js';
+import ScraperHelper from '../scraperHelper.js';
+import Constants from '../../constants.js';
+import { AdSource } from '../../dataLayer/enums/adSource.js';
+import { JobAd } from '../../dataLayer/models/jobAd.js';
+import Utils from '../../utils/utils.js';
 
-export default async function scrapeAds(requestedJobTitle: string, nOfAdsToBeScraped: number): Promise<JobAd[]> {
-    const formattedJobTitle = requestedJobTitle.trim().replace(Constants.WHITESPACE, Constants.PLUS_SIGN);
-    let currentPage = 1;
+export default async function scrapeAds(reqJobTitle: string, reqNofAds: number): Promise<JobAd[]> {
+    const formattedJobTitle = reqJobTitle.trim().replace(Constants.WHITESPACE, Constants.PLUS_SIGN);
 
-    const browser = await (new Browser()).run();
+    const scrapeTracker = ScraperHelper.scrapeSetup(null, 1);
+    const browser = await Browser.run();
+    while (scrapeTracker.nOfScrapedAds < reqNofAds) {
+        scrapeTracker.url = `https://www.arbeitnow.com/?search=${formattedJobTitle}&page=${scrapeTracker.currentPage}`;
+        let page = await Browser.openPage(browser, scrapeTracker.url);
 
-    const scrapedAds: JobAd[] = [];
-    let nOfScrapedAds = 0;
-    let url: string | null = null;
-    while (nOfScrapedAds < nOfAdsToBeScraped) {
-        url = `https://www.arbeitnow.com/?search=${formattedJobTitle}&page=${currentPage}`;
-        await browser.openPage(url);
-
-        const jobAdElements = await browser.page.$$(Constants.ARBEITNOW_JOB_ADS);
-        console.log("about to scrape " + url + ". " + jobAdElements.length + " job ads have been detected on the page");
-        let jobLink: string | null;
-        const newAd: JobAd = {
-            createdDate: null,
-            updatedDate: null,
-            source: null,
-            jobLink: null
-        };
+        const jobAdElements = await page.$$(Constants.ARBEITNOW_JOB_ADS);
         for (let i = 0; i < jobAdElements.length; i++) {
-            jobLink = await jobAdElements[i].$eval(Constants.ARBEITNOW_JOB_LINK[0], el => el.getAttribute(Constants.ARBEITNOW_JOB_LINK[1]));
+            let jobLink = await page.evaluate((el, selector) => el.getAttribute(selector), jobAdElements[i], Constants.HREF_SELECTOR);
+            jobLink = jobLink.trim();
 
-            const currentTimestap = Utils.transformToTimestamp((new Date(Date.now())).toString());
-            newAd.createdDate = currentTimestap;
-            newAd.updatedDate = currentTimestap;
-            newAd.source = AdSource.ARBEIT_NOW;
-            newAd.jobLink = jobLink;
-            scrapedAds.push(newAd);
+            let currentTimestap = Utils.transformToTimestamp((new Date(Date.now())).toString());
+            let newAd: JobAd = {
+                createdDate: currentTimestap,
+                updatedDate: currentTimestap,
+                source: AdSource.ARBEIT_NOW,
+                jobLink: jobLink
+            };
+            scrapeTracker.scrapedAds.push(newAd);
         }
 
         if (!jobAdElements || jobAdElements.length == 0) break; 
-        currentPage += 1;
-        nOfScrapedAds += jobAdElements.length;
+        scrapeTracker.currentPage += 1;
+        scrapeTracker.nOfScrapedAds += jobAdElements.length;
     }
 
-    console.log(scrapedAds.length + " ads have been scraped in total.");
+    console.log(scrapeTracker.scrapedAds.length + " ads have been scraped in total.");
 
-    await browser.closeBrowser();
-    return scrapedAds;
+    await Browser.close(browser);
+    return scrapeTracker.scrapedAds;
 }
-

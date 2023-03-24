@@ -1,49 +1,42 @@
-import Browser from "../../browserAPI";
-import Constants from "../../constants";
-import { AdSource } from "../../dataLayer/enums/adSource";
-import { JobAd } from '../../dataLayer/models/jobAd';
-import Utils from "../../utils/utils";
+import Browser from '../../browserAPI.js';
+import ScraperHelper from '../scraperHelper.js';
+import Constants from '../../constants.js';
+import { AdSource } from '../../dataLayer/enums/adSource.js';
+import { JobAd } from '../../dataLayer/models/jobAd.js';
+import Utils from '../../utils/utils.js';
 
-export default async function scrapeAds(requestedJobTitle: string, nOfAdsToBeScraped: number): Promise<JobAd[]> {
-    const formattedJobTitle = requestedJobTitle.replace(Constants.WHITESPACE, Constants.WHITESPACE_URL_ENCODING);
+export default async function scrapeAds(reqJobTitle: string, reqNofAds: number): Promise<JobAd[]> {
+    const formattedJobTitle = reqJobTitle.replace(Constants.WHITESPACE, Constants.WHITESPACE_URL_ENCODING);
 
-    const browser = await (new Browser()).run();
+    const scrapeTracker = ScraperHelper.scrapeSetup(null, 1);
+    const browser = await Browser.run();
+    while (scrapeTracker.nOfScrapedAds < reqNofAds) {
+        scrapeTracker.url = `${Constants.TYBA_URL}/jobs?keyword=${formattedJobTitle}r&limit=10&offset=${scrapeTracker.nOfScrapedAds}`;
+        const page = await Browser.openPage(browser, scrapeTracker.url);
 
-    let url = null;
-    let nOfScrapedAds = 0;
-    let jobLinkElements = null;
-    const scrapedAds: JobAd[] = [];
-    while (nOfScrapedAds < nOfAdsToBeScraped) {
-        url = `${Constants.TYBA_URL}/jobs?keyword=${formattedJobTitle}r&limit=10&offset=${nOfScrapedAds}`;
-        await browser.openPage(url);
-
-        jobLinkElements = await browser.page.$$(Constants.TYBA_JOBLINKS_SELECTOR);
-        console.log("about to scrape " + url + ". " + jobLinkElements.length + " job ads have been detected on the page");
-        let jobLink = null;
-        const newAd: JobAd = {
-            createdDate: null,
-            updatedDate: null,
-            source: null,
-            jobLink: null
-        };
+        const jobLinkElements = await page.$$(Constants.TYBA_JOBLINKS_SELECTOR);
         for (let j = 0; j < jobLinkElements.length; j++) {
-            jobLink = await jobLinkElements[j].evaluate(el => el.getAttribute(Constants.HREF_SELECTOR));
+            let jobLink = await page.evaluate((el, selector) => el.getAttribute(selector), jobLinkElements[j], Constants.HREF_SELECTOR);
             jobLink = Constants.TYBA_URL + jobLink.trim();
 
             const currentTimestap = Utils.transformToTimestamp((new Date(Date.now())).toString());
-            newAd.createdDate = currentTimestap;
-            newAd.updatedDate = currentTimestap;
-            newAd.source = AdSource.TYBA;
-            newAd.jobLink = jobLink;
-            scrapedAds.push(newAd);
+            const newAd: JobAd = {
+                createdDate: currentTimestap,
+                updatedDate: currentTimestap,
+                source: AdSource.TYBA,
+                jobLink: jobLink
+            };
+            scrapeTracker.scrapedAds.push(newAd);
         }
         
-        if (!jobLinkElements || jobLinkElements.length == 0) break;
-        nOfScrapedAds += jobLinkElements.length;
+        if (!jobLinkElements || jobLinkElements.length == 0) break; 
+        scrapeTracker.currentPage += 1;
+        scrapeTracker.nOfScrapedAds += jobLinkElements.length;
     }
 
-    console.log(scrapedAds.length + " ads have been scraped in total.");
-
-    await browser.closeBrowser();
-    return scrapedAds;
+    console.log(scrapeTracker.scrapedAds.length + " ads have been scraped in total.");
+    
+    await Browser.close(browser);
+    console.log(scrapeTracker.scrapedAds[0]);
+    return scrapeTracker.scrapedAds;
 }

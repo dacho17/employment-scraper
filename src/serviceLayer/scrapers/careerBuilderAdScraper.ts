@@ -1,55 +1,49 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 
-import Constants from "../../constants";
-import { AdSource } from "../../dataLayer/enums/adSource";
-import { JobAd } from '../../dataLayer/models/jobAd';
-import Utils from "../../utils/utils";
+import ScraperHelper from '../scraperHelper.js';
+import Constants from "../../constants.js";
+import { AdSource } from "../../dataLayer/enums/adSource.js";
+import { JobAd } from '../../dataLayer/models/jobAd.js';
+import Utils from "../../utils/utils.js";
 
-export default async function scrapeAds(workFromHome: boolean, requestedJobTitle: string, nOfAdsToBeScraped: number): Promise<JobAd[]> {
-    const formattedJobTitle = requestedJobTitle.trim().replace(Constants.WHITESPACE, Constants.PLUS_SIGN);
-    let currentPage = 1;
+export default async function scrapeAds(reqJobTitle: string, reqNofAds: number, workFromHome: boolean): Promise<JobAd[]> {
+    const formattedJobTitle = reqJobTitle.trim().replace(Constants.WHITESPACE, Constants.PLUS_SIGN);
 
-    const scrapedAds: JobAd[] = [];
-    let nOfScrapedAds = 0;
-    let jobAdElements = null;
-    let url: string | null = null;
-    while (nOfScrapedAds < nOfAdsToBeScraped) {
-        url = `https://www.careerbuilder.com/jobs?cb_workhome=${workFromHome}&keywords=${formattedJobTitle}&page_number=${currentPage}`;
+    const scrapeTracker = ScraperHelper.scrapeSetup(null, 1);
+    while (scrapeTracker.nOfScrapedAds < reqNofAds) {
+        scrapeTracker.url = `${Constants.CAREER_BUILDER_URL}/jobs?cb_workhome=${workFromHome}&keywords=${formattedJobTitle}&page_number=${scrapeTracker.currentPage}`;
+        console.log(scrapeTracker.url);
         let response = null;
         try {
-            response = await axios(url);
+            response = await axios(scrapeTracker.url);
         } catch(exception) {
             console.log(exception.message);
-            throw `An exception occurred while accessing the url=${url}!`;
+            throw `An exception occurred while accessing the url=${scrapeTracker.url}!`;
         }
 
         const $ = cheerio.load(response.data);
-        jobAdElements = $(Constants.CAREER_BUILDER_JOB_ADS);
+        const jobAdElements = $(Constants.CAREER_BUILDER_JOB_ADS).toArray().map((elem: cheerio.Element) => {
+            if (elem?.attributes !== undefined) {
+                let attr = elem.attributes;
+                let jobLink = Constants.CAREER_BUILDER_URL + attr.find(attr => attr[Constants.CAREER_BUILDER_JOBLINK_SELECTOR[0]] == Constants.CAREER_BUILDER_JOBLINK_SELECTOR[1])[Constants.VALUE_SELECTOR].trim();
 
-        let jobLink: string | null = null;
-        const newAd: JobAd = {
-            createdDate: null,
-            updatedDate: null,
-            source: null,
-            jobLink: null
-        };
-        for (let i = 0; i < jobAdElements.length; i++) {
-            jobLink = 'https://www.careerbuilder.com' + jobAdElements[i]?.attributes.find(attr => attr[Constants.CAREER_BUILDER_JOBLINK_SELECTOR[0]] == Constants.CAREER_BUILDER_JOBLINK_SELECTOR[1])['value'].trim();
-
-            const currentTimestap = Utils.transformToTimestamp((new Date(Date.now())).toString());
-            newAd.createdDate = currentTimestap;
-            newAd.updatedDate = currentTimestap;
-            newAd.source = AdSource.CAREER_BUILDER;
-            newAd.jobLink = jobLink;
-            scrapedAds.push(newAd);
-        }
+                let currentTimestap = Utils.transformToTimestamp((new Date(Date.now())).toString());
+                let newAd: JobAd = {
+                    createdDate: currentTimestap,
+                    updatedDate: currentTimestap,
+                    source: AdSource.CAREER_BUILDER,
+                    jobLink: jobLink
+                };
+                scrapeTracker.scrapedAds.push(newAd);
+            }
+        });
 
         if (!jobAdElements || jobAdElements.length == 0) break; 
-        currentPage += 1;
-        nOfScrapedAds += jobAdElements.length;
+        scrapeTracker.currentPage += 1;
+        scrapeTracker.nOfScrapedAds += jobAdElements.length;
     }
 
-    console.log(scrapedAds.length + " ads have been scraped in total.");
-    return scrapedAds;
+    console.log(scrapeTracker.scrapedAds.length + " ads have been scraped in total.");
+    return scrapeTracker.scrapedAds;
 }

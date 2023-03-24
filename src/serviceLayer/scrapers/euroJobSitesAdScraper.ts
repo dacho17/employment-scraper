@@ -1,66 +1,61 @@
-import Browser from "../../browserAPI";
-import Constants from "../../constants";
-import { AdSource } from "../../dataLayer/enums/adSource";
-import { EuroJobSitesField } from "../../dataLayer/enums/euroJobSitesField";
-import { JobAd } from '../../dataLayer/models/jobAd';
-import Utils from "../../utils/utils";
+import Browser from '../../browserAPI.js';
+import Constants from '../../constants.js';
+import { AdSource } from '../../dataLayer/enums/adSource.js';
+import { JobAd } from '../../dataLayer/models/jobAd.js';
+import Utils from '../../utils/utils.js';
+import { EuroJobSitesField } from "../../dataLayer/enums/euroJobSitesField.js";
 
-
-
-function chooseTheSiteBasedOnRequest(fieldOfWork: EuroJobSitesField): string {
+function chooseTheSiteBasedOnRequest(fieldOfWork: string): [string, AdSource] {
     switch(fieldOfWork) {
         case EuroJobSitesField.ENGINEERING:
-            return Constants.EURO_ENGINEERING_URL;
+            return [Constants.EURO_ENGINEERING_URL, AdSource.EURO_ENGINEER_JOBS];
         case EuroJobSitesField.SCIENCE:
-            return Constants.EURO_SCIENCE_URL;
+            return [Constants.EURO_SCIENCE_URL, AdSource.EURO_SCIENCE_JOBS];
         case EuroJobSitesField.SPACE:
-            return Constants.EURO_SPACE_CAREERS_URL;
+            return [Constants.EURO_SPACE_CAREERS_URL, AdSource.EURO_SPACE_CAREERS];
         case EuroJobSitesField.TECH:
-            return Constants.EURO_TECH_URL;
+            return [Constants.EURO_TECH_URL, AdSource.EURO_TECH_JOBS];
         default:
             throw Constants.UNDEFINED_FIELD_OF_WORK;
     }
 }
 
-async function gatherJobAds(scrapedAds, jobAdElements, baseUrl) {
-    let jobLink = null;
-    const newAd: JobAd = {
-        createdDate: null,
-        updatedDate: null,
-        source: null,
-        jobLink: null
-    };
+async function gatherJobAds(scrapedAds: JobAd[], adSource: AdSource, baseUrl: string, page: any, selector: string): Promise<JobAd[]> {
+    let jobAdElements = await page.$$(selector);
     for (let i = 0; i < jobAdElements.length; i++) {
-        jobLink = baseUrl + await jobAdElements[i].evaluate(el => el.getAttribute(Constants.HREF_SELECTOR));
-
+        let jobLink = baseUrl + await page.evaluate((el, selector) => el.getAttribute(selector), jobAdElements[i], Constants.HREF_SELECTOR);
+        
         const currentTimestap = Utils.transformToTimestamp((new Date(Date.now())).toString());
-        newAd.createdDate = currentTimestap;
-        newAd.updatedDate = currentTimestap;
-        newAd.source = AdSource.EURO_ENGINEER_JOBS;
-        newAd.jobLink = jobLink;
+        let newAd: JobAd = {
+            createdDate: currentTimestap,
+            updatedDate: currentTimestap,
+            source: adSource,
+            jobLink: jobLink
+        }
         scrapedAds.push(newAd);
     }
 
     return scrapedAds;
 }
 
-export default async function scrapeAds(requestedJobTitle: string, fieldOfWork: EuroJobSitesField): Promise<JobAd[]> {
-    const formattedJobTitle = requestedJobTitle.replace(Constants.WHITESPACE, Constants.UNDERSCORE);
-
-    const baseUrl = chooseTheSiteBasedOnRequest(fieldOfWork);
+export default async function scrapeAds(reqJobTitle: string, fieldOfWork: string): Promise<JobAd[]> {
+    
+    const formattedJobTitle = reqJobTitle.replace(Constants.WHITESPACE, Constants.UNDERSCORE);
+    
+    const [baseUrl, adSource] = chooseTheSiteBasedOnRequest(fieldOfWork);
     const url = `${baseUrl}/job_search/keyword/${formattedJobTitle}`;
 
-    const browser = await (new Browser()).run();
-    await browser.openPage(url);
+    const browser = await Browser.run();
+    const page = await Browser.openPage(browser, url);
 
     let scrapedAds : JobAd[] = [];
-    scrapedAds = await gatherJobAds(scrapedAds, await browser.page.$$(Constants.EURO_ENGINEER_JOBLINKS_SELECTOR_ONE), baseUrl);
+    scrapedAds = await gatherJobAds(scrapedAds, adSource, baseUrl, page, Constants.EURO_JOBS_JOBLINKS_SELECTOR_ONE);
     console.log("about to scrape first batch of job ads from " + url + ". ");
-    scrapedAds = await gatherJobAds(scrapedAds, await browser.page.$$(Constants.EURO_ENGINEER_JOBLINKS_SELECTOR_TWO), baseUrl);
+    scrapedAds = await gatherJobAds(scrapedAds, adSource, baseUrl, page, Constants.EURO_JOBS_JOBLINKS_SELECTOR_TWO);
     console.log("about to scrape second batch of job ads from " + url + ". ");
 
     console.log(scrapedAds.length + " ads have been scraped in total.");
 
-    await browser.closeBrowser();
+    await Browser.close(browser);
     return scrapedAds;
 }
