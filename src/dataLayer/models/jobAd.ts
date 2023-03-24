@@ -1,4 +1,4 @@
-import { AdSource } from "../enums/adSource";
+import { AdSource } from "../enums/adSource.js";
 
 export class JobAd {
     createdDate: number;

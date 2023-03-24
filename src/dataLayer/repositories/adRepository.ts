@@ -1,5 +1,5 @@
-import dbSession from '../../database/db';
-import { JobAd } from '../../dataLayer/models/jobAd';
+import dbSession from '../../database/db.js';
+import { JobAd } from '../../dataLayer/models/jobAd.js';
 
 async function storeAds(scrapedAds: JobAd[]) {
     const db = await dbSession.connectToDB();

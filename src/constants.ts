@@ -4,7 +4,16 @@ const Constants = {
     EURO_SCIENCE_URL: 'https://www.eurosciencejobs.com',
     EURO_SPACE_CAREERS_URL: 'https://www.space-careers.com',
     EURO_TECH_URL: 'https://www.eurotechjobs.com',
-
+    CAREER_JET_URL: 'https://www.careerjet.com',
+    CV_LIBRARY_URL: 'https://www.cv-library.co.uk',
+    JOB_FLUENT_URL: 'https://www.jobfluent.com',
+    JOBS_IN_NETWORK_URL: 'https://www.jobsinnetwork.com',
+    NO_FLUFF_JOBS_URL: 'https://nofluffjobs.com',
+    QREER_URL: 'https://www.qreer.com',
+    SIMPLY_HIRED_URL: 'https://www.simplyhired.com',
+    WE_WORK_REMOTELY_URL: 'https://weworkremotely.com',
+    CAREER_BUILDER_URL: 'https://www.careerbuilder.com',
+    INDEED_URL: 'https://www.indeed.com',
 
     LN_DETAIL_LOCATION_SELECTOR: '.sub-nav-cta__meta-text',
     LN_DETAIL_JOBTITLE_SELECTOR: '.sub-nav-cta__header',
@@ -14,7 +23,7 @@ const Constants = {
     LN_DETAIL_ADCONTENT_SELECTOR: '.show-more-less-html__markup',
     LN_DETAIL_JOBPROPS_SELECTOR: '.description__job-criteria-text--criteria',
 
-    LN_AD_JOB_LINK_SELECTOR: '.base-card__full-link',
+    
     LN_AD_JOB_LINK_PROPS: ['name', 'href'],
     LN_AD_JOB_TITLE_SELECTOR: '.base-search-card__title',
     LN_AD_COMPANY_NAME_SELECTOR: '.base-search-card__subtitle',
@@ -46,6 +55,8 @@ const Constants = {
     ARIALABEL_SELECTOR: 'aria-label',
     ID_SELECTOR: 'id',
 
+    INDEED_JOBLINKS_SELECTOR: 'h2.jobTitle > a',
+    LN_JOBLINKS_SELECTOR: '.base-card__full-link',
     CAREER_JET_JOBLINKS_SELECTOR: '.job.clicky > header > h2 > a',
     TYBA_JOBLINKS_SELECTOR: '#timeline > .section-view-list > .bem-enabled > a',
     NO_FLUFF_JOBS_JOBLINKS_SELECTOR: '.list-container > .posting-list-item',
@@ -59,22 +70,19 @@ const Constants = {
     WE_WORK_REMOTELY_JOB_SECTION_SELECTOR: '.jobs-container > .jobs',
     WE_WORK_REMOTELY_VIEW_ALL_JOBS_SELECTOR: 'article > ul > .view-all > a',
   
-    
-
     CV_LIBRARY_JOBLINK_SUFFIX: '-jobs',
-    CV_LIBRARY_JOBLINKS_SELECTOR: '#searchResults > .results__item > article > div > h2 > a',   // article > div > h2 > a added here
+    CV_LIBRARY_JOBLINKS_SELECTOR: '#searchResults > .results__item > article > div > h2 > a',
+    EURO_JOBS_JOBLINKS_SELECTOR: '.viewDetails > a',
 
-    EURO_ENGINEER_JOBLINKS_SELECTOR_ONE: '.searchList > li > div > div > div > a',
-    EURO_ENGINEER_JOBLINKS_SELECTOR_TWO: '.searchList > li > div > div > div > div > div > h3 > a',
+    EURO_JOBS_JOBLINKS_SELECTOR_ONE: '.searchList > li > div > div > div > a',
+    EURO_JOBS_JOBLINKS_SELECTOR_TWO: '.searchList > li > div > div > div > div > div > h3 > a',
 
     JOB_FLUENT_JOBLINKS_SELECTOR: '.offer-title > a',
 
-    JOBS_IN_NETWORK_JOBITEMS_SELECTOR: '.section-jobs-listing > .section-jobs-item',
-    JOBS_IN_NETWORK_JOBTITLE_SELECTOR: '.card-job > .card-job-body > .card-job-body-title',
-    JOBS_IN_NETWORK_JOBID_SELECTOR: '.card-job',
+    JOBS_IN_NETWORK_JOBTITLE_SELECTOR: '.section-jobs-listing > .section-jobs-item > div > div > h2',
+    JOBS_IN_NETWORK_JOBID_SELECTOR: '.section-jobs-listing > .section-jobs-item > .card-job',
 
-    ARBEITNOW_JOB_ADS: '#results > li',
-    ARBEITNOW_JOB_LINK: ['div > .items-center > div > a', 'href'],
+    ARBEITNOW_JOB_ADS: '#results > li > div > .items-center > div > a',
     ARBEITNOW_SOURCE: 'ARBEITNOW',
 
     CAREER_BUILDER_JOB_ADS: 'li > .job-listing-item',
@@ -82,16 +90,23 @@ const Constants = {
     CAREER_BUILDER_JOBDETAILS_SELECTOR: '.data-details',
     CAREER_BUILDER_JOBLINK_SELECTOR: ['name', 'href'],    
 
-    ADZUNA_SELECTOR_JOB_ADS: '.ui-search-results > div[data-aid] > .w-full',
-    ADZUNA_SELECTOR_JOB_LINK: ['.flex.gap-4 > h2 > a', 'href'],
-    ADZUNA_DELIMITER: '%20',
+    ADZUNA_JOBLINKS_SELECTOR: '.ui-search-results > div[data-aid] > .w-full > .flex.gap-4 > h2 > a',
 
     SIMPLY_HIRED_DAY_MARK: 'd',
 
     NO_APPLICANTS: 'No applicants yet',
     APPLICANT_DATA_UNKNOWN: 'Data on applicants is unknown',
     UNDISCLOSED_SALARY: 'Undisclosed',
-    UNDEFINED_FIELD_OF_WORK: 'The field of work is undefined'
+    UNDEFINED_FIELD_OF_WORK: 'The field of work is undefined',
+
+    ADS_SCRAPED_SUCCESSFULLY: 'Ads scraped and stored into the database successfully!',
+    NO_ADS_FOUND_TO_BE_SCRAPED_MESSAGE: 'No ads have been found on the page given your query.',
+    BAD_REQUEST_MESSAGE: 'The request parameters received are faulty.',
+
+
+    HTTP_OK: 200,
+    HTTP_BAD_REQUEST: 400,
+    HTTP_SERVER_ERROR: 500
 }
 
 export default Constants;
