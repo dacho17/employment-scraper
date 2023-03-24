@@ -14,6 +14,7 @@ const Constants = {
     WE_WORK_REMOTELY_URL: 'https://weworkremotely.com',
     CAREER_BUILDER_URL: 'https://www.careerbuilder.com',
     INDEED_URL: 'https://www.indeed.com',
+    GRADUATELAND_URL: 'https://graduateland.com',
 
     LN_DETAIL_LOCATION_SELECTOR: '.sub-nav-cta__meta-text',
     LN_DETAIL_JOBTITLE_SELECTOR: '.sub-nav-cta__header',
@@ -55,6 +56,8 @@ const Constants = {
     ARIALABEL_SELECTOR: 'aria-label',
     ID_SELECTOR: 'id',
 
+    GRADUATELAND_JOBLINKS_SELECTOR: '.job-box',
+    EURES_JOBLINKS_SELECTOR: '.ecl-link--standalone',
     INDEED_JOBLINKS_SELECTOR: 'h2.jobTitle > a',
     LN_JOBLINKS_SELECTOR: '.base-card__full-link',
     CAREER_JET_JOBLINKS_SELECTOR: '.job.clicky > header > h2 > a',

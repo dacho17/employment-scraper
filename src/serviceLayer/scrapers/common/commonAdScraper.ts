@@ -21,9 +21,12 @@ function getSiteData(urlParams: AdScrapeUrlParams, scrapeTracker: AdScrapeTracke
         case AdSource.CV_LIBRARY:
             scrapeTracker.url = `${Constants.CV_LIBRARY_URL}/${urlParams.jobTitle}?&page=${scrapeTracker.currentPage}`;
             return Constants.CV_LIBRARY_JOBLINKS_SELECTOR;
-        case AdSource.EURO_JOBS:
+       case AdSource.EURO_JOBS:
             scrapeTracker.url = `https://eurojobs.com/search-results-jobs/?action=search&listing_type%5Bequal%5D=Job&keywords%5Ball_words%5D=${urlParams.jobTitle}&page=${scrapeTracker.currentPage}&view=list`;
             return Constants.EURO_JOBS_JOBLINKS_SELECTOR;
+        case AdSource.GRADUATELAND:
+            scrapeTracker.url = `${Constants.GRADUATELAND_URL}/en/jobs?keyword=${urlParams.jobTitle}&limit=10&offset=${scrapeTracker.nOfScrapedAds}`
+            return Constants.GRADUATELAND_JOBLINKS_SELECTOR;
         case AdSource.JOB_FLUENT:
             scrapeTracker.url = `${Constants.JOB_FLUENT_URL}/jobs-remote?page=${scrapeTracker.currentPage}`;
             return Constants.JOB_FLUENT_JOBLINKS_SELECTOR;
@@ -50,6 +53,8 @@ function formatJobLink(jobLink: string, adSource: AdSource) {
             return Constants.CAREER_JET_URL + jobLink.trim();
         case AdSource.CV_LIBRARY:
             return Constants.CV_LIBRARY_URL + jobLink.trim();
+        case AdSource.GRADUATELAND:
+            return Constants.GRADUATELAND_URL + jobLink.trim();
         case AdSource.JOB_FLUENT:
             return Constants.JOB_FLUENT_URL + jobLink.trim();
         case AdSource.NO_FLUFF_JOBS:
@@ -72,6 +77,8 @@ export default async function scrapeAdsGeneric(urlParams: AdScrapeUrlParams, adS
     while (scrapeTracker.nOfScrapedAds < urlParams.reqNofAds) {
         const selector = getSiteData(urlParams, scrapeTracker, adSource);
         let page = await Browser.openPage(browser, scrapeTracker.url);
+
+        console.log(await page.content());
         
         const jobAdElements = await page.$$(selector);
         for (let j = 0; j < jobAdElements.length; j++) {

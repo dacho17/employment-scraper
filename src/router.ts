@@ -84,6 +84,14 @@ export default class AppRouter {
             }
         });
 
+        AppRouter.router.post('/scrape-graduateland-ads', (req, res) => {
+            if (!RequestValidator.validateJobTitle(req.body.jobTitle) || !RequestValidator.validateNofAds(req.body.numberOfAds)) {
+                respondBadRequest(res);
+            } else {
+                scrapeAndRespond(res, [req.body.jobTitle, req.body.numberOfAds], scrapers.scrapeGraduatelandAds);
+            }
+        });
+
         AppRouter.router.post('/scrape-indeed-ads', (req, res) => {
             if (!RequestValidator.validateJobTitle(req.body.jobTitle) || !RequestValidator.validateNofAds(req.body.numberOfAds)
                 || !RequestValidator.validateLocation(req.body.location)) {
