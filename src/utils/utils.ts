@@ -1,6 +1,6 @@
 import datefns from 'date-fns';
-import constants from '../constants';
-import { AdPostedAgoTimeframe } from '../dataLayer/enums/adPostedAgoTimefram';
+import constants from '../constants.js';
+import { AdPostedAgoTimeframe } from '../dataLayer/enums/adPostedAgoTimeframe.js';
 
 // TODO: make sure that the timezones are standardized and stored to the database. From there we serve dates according to the timezone user is in
 export default class Utils {
