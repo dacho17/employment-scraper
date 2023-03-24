@@ -1,7 +1,5 @@
-// I get a response that I have no access to the page
-
-
-import ScraperHelper from '../scraperHelper.js'
+// NOTE: I get a response that I have no access to the page
+import ScraperHelper from './common/scraperHelper.js'
 import Constants from '../../constants.js';
 import Browser from '../../browserAPI.js';
 import { AdSource } from '../../dataLayer/enums/adSource.js';

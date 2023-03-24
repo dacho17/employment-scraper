@@ -21,12 +21,12 @@ function chooseTheSiteBasedOnRequest(fieldOfWork: string): [string, AdSource] {
 }
 
 async function gatherJobAds(scrapedAds: JobAd[], adSource: AdSource, baseUrl: string, page: any, selector: string): Promise<JobAd[]> {
-    let jobAdElements = await page.$$(selector);
+    const jobAdElements = await page.$$(selector);
     for (let i = 0; i < jobAdElements.length; i++) {
-        let jobLink = baseUrl + await page.evaluate((el, selector) => el.getAttribute(selector), jobAdElements[i], Constants.HREF_SELECTOR);
+        const jobLink = baseUrl + await page.evaluate((el, selector) => el.getAttribute(selector), jobAdElements[i], Constants.HREF_SELECTOR);
         
         const currentTimestap = Utils.transformToTimestamp((new Date(Date.now())).toString());
-        let newAd: JobAd = {
+        const newAd: JobAd = {
             createdDate: currentTimestap,
             updatedDate: currentTimestap,
             source: adSource,

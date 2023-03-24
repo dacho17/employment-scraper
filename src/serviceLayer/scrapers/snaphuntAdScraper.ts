@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import ScraperHelper from '../scraperHelper.js';
+import ScraperHelper from './common/scraperHelper.js';
 import { AdSource } from "../../dataLayer/enums/adSource.js";
 import { JobAd } from '../../dataLayer/models/jobAd.js';
 import Utils from "../../utils/utils.js";

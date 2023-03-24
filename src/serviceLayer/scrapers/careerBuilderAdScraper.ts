@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 
-import ScraperHelper from '../scraperHelper.js';
+import ScraperHelper from './common/scraperHelper.js';
 import Constants from "../../constants.js";
 import { AdSource } from "../../dataLayer/enums/adSource.js";
 import { JobAd } from '../../dataLayer/models/jobAd.js';
@@ -25,11 +25,11 @@ export default async function scrapeAds(reqJobTitle: string, reqNofAds: number, 
         const $ = cheerio.load(response.data);
         const jobAdElements = $(Constants.CAREER_BUILDER_JOB_ADS).toArray().map((elem: cheerio.Element) => {
             if (elem?.attributes !== undefined) {
-                let attr = elem.attributes;
-                let jobLink = Constants.CAREER_BUILDER_URL + attr.find(attr => attr[Constants.CAREER_BUILDER_JOBLINK_SELECTOR[0]] == Constants.CAREER_BUILDER_JOBLINK_SELECTOR[1])[Constants.VALUE_SELECTOR].trim();
+                const attr = elem.attributes;
+                const jobLink = Constants.CAREER_BUILDER_URL + attr.find(attr => attr[Constants.CAREER_BUILDER_JOBLINK_SELECTOR[0]] == Constants.CAREER_BUILDER_JOBLINK_SELECTOR[1])[Constants.VALUE_SELECTOR].trim();
 
-                let currentTimestap = Utils.transformToTimestamp((new Date(Date.now())).toString());
-                let newAd: JobAd = {
+                const currentTimestap = Utils.transformToTimestamp((new Date(Date.now())).toString());
+                const newAd: JobAd = {
                     createdDate: currentTimestap,
                     updatedDate: currentTimestap,
                     source: AdSource.CAREER_BUILDER,

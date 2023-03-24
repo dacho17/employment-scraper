@@ -1,5 +1,5 @@
 import Browser from '../../browserAPI.js';
-import ScraperHelper from '../scraperHelper.js';
+import ScraperHelper from './common/scraperHelper.js';
 import Constants from '../../constants.js';
 import { AdSource } from '../../dataLayer/enums/adSource.js';
 import { JobAd } from '../../dataLayer/models/jobAd.js';
