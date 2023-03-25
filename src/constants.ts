@@ -74,12 +74,17 @@ const Constants = {
     ADZUNA_DETAILS_SUBTITLE_SECTION_SELECTOR: 'div > div > table > tbody > tr > td > strong',
     ADZUNA_DETAILS_JOB_DESCRIPTION_SELECTOR: '.ui-foreign-click-description > section',
 
-    ARBEITNOW_JOB_TITLE_SELECTOR: 'a[itemprop="url"]',
-    ARBEITNOW_COMPANY_NAME_SELECTOR: 'a[itemprop="hiringOrganization"]',
-    ARBEITNOW_COMPANY_LOCATION_SELECTOR: '.list-none > div > div > div > div > div > div > p',
-    ARBEITNOW_JOB_DETAILS_SELECTOR: 'button', // .list-none > 
-    ARBEITNOW_POSTED_DATE_SELECTOR: 'time',
-    ARBEITNOW_JOB_DESCRIPTION_SELECTOR: 'div[itemprop="description"]',
+    ARBEITNOW_DETAILS_JOB_TITLE_SELECTOR: 'a[itemprop="url"]',
+    ARBEITNOW_DETAILS_COMPANY_NAME_SELECTOR: 'a[itemprop="hiringOrganization"]',
+    ARBEITNOW_DETAILS_COMPANY_LOCATION_SELECTOR: '.list-none > div > div > div > div > div > div > p',
+    ARBEITNOW_DETAILS_JOB_DETAILS_SELECTOR: 'button', // .list-none > 
+    ARBEITNOW_DETAILS_POSTED_DATE_SELECTOR: 'time',
+    ARBEITNOW_DETAILS_JOB_DESCRIPTION_SELECTOR: 'div[itemprop="description"]',
+
+    CAREER_BUILDER_DETAILS_JOB_TITLE_SELECTOR: '.data-display-header_info-content > h2',
+    CAREER_BUILDER_DETAILS_JOB_SUBTITLE_SELECTOR: '.data-display-header_info-content > .data-details > span',
+    CAREER_BUILDER_DETAILS_JOB_DESCRIPTION_SELECTOR: '.jdp-left-content',
+    CAREER_BUILDER_DETAILS_REQUIRED_SKILLS_SELECTOR: '.jdp-required-skills > ul > li',
 
     SIMPLY_HIRED_NAVIGATION_BUTTONS_SELECTOR: 'nav[role="navigation"] > a',
 

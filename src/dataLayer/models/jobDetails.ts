@@ -4,6 +4,7 @@ export class JobDetails {
     companyLocation: string;
     jobDetails?: string;
     timeEngagement: string;
+    requiredSkills?: string;
     postedDate?: number;
     jobDescription: string;
 }

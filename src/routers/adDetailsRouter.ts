@@ -16,6 +16,10 @@ export default class AdDetailsRouter {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeArbeitNowDetails);
         });
 
+        AdDetailsRouter.router.get('/scrape-career-builder-ad-details', (req, res) => {
+            AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeCareerBuilderDetails);
+        });
+
         return AdDetailsRouter.router;
     }
 
