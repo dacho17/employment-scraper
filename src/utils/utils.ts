@@ -92,7 +92,7 @@ export default class Utils {
     }
 
     static getPostedDate4CvLibrary(textContainingPostedAgo: string): Date {
-        const [firstPart, secondPart, _] = textContainingPostedAgo.trim().split(constants.WHITESPACE)
+        const [firstPart, secondPart, _] = textContainingPostedAgo.trim().split(constants.WHITESPACE);
 
         if (!isNaN(Date.parse(firstPart))) {
             return new Date(Date.parse(firstPart));
@@ -115,6 +115,18 @@ export default class Utils {
             }
         }
         return new Date(null);
+    }
+
+    static getPostedDate4Graduateland(textContainingPostedAgo: string): Date {
+        const [_, firstPart, secondPart] = textContainingPostedAgo.trim().split(constants.WHITESPACE);
+
+        if (secondPart.includes(AdPostedAgoTimeframe.DAY)) {
+            return addDays(Date.now(), -parseInt(firstPart))
+        } else if (secondPart.includes(AdPostedAgoTimeframe.WEEK)) {
+            return addWeeks(Date.now(), -parseInt(firstPart));
+        } else {
+            return new Date(null);
+        }
     }
 
     getNumberOfApplicants(textContainingNumberOfApplicants) {

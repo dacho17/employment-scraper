@@ -2,6 +2,7 @@ export class JobDetails {
     jobTitle: string;
     companyName: string;
     companyLocation: string;
+    companyLink?: string;
     workLocation?: string;
     jobDetails?: string;
     timeEngagement: string;
@@ -10,4 +11,5 @@ export class JobDetails {
     requiredSkills?: string;
     postedDate?: number;
     jobDescription: string;
+    additionalJobLink?: string;
 }

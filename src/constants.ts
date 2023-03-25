@@ -105,6 +105,18 @@ const Constants = {
     EURO_JOBS_DETAILS_JOB_DETAILS_KEY_SELECTOR: '.displayFieldBlock > h3',
     EURO_JOBS_DETAILS_JOB_DETAILS_VALUE_SELECTOR: '.displayField',
 
+    EURO_JOB_SITES_DETAILS_ADDITIONAL_JOB_LINK_SELECTOR: '.job-header > div > h2 > a',
+    EURO_JOB_SITES_DETAILS_HEADER_SELECTOR: '.job-header > div > h2',
+    EURO_JOB_SITES_DETAILS_AD_SELECTOR: '.job-header > div',
+
+    GRADUATELAND_DETAILS_JOB_TITLE_SELECTOR: '.job-title > h1',
+    GRADUATELAND_DETAILS_COMPANY_NAME_SELECTOR: '.job-title > h1 > span > a',
+    GRADUATELAND_DETAILS_POSTED_AGO_SELECTOR: '.date > span',
+    GRADUATELAND_DETAILS_JOB_DETAILS_KEY_SELECTOR: '.content-description > h3',
+    GRADUATELAND_DETAILS_JOB_DETAILS_VALUES_SELECTOR: '.content-description > p > span',
+    GRADUATELAND_DETAILS_JOB_DESCRIPTION_SELECTOR: '.job-content',
+
+
     SIMPLY_HIRED_NAVIGATION_BUTTONS_SELECTOR: 'nav[role="navigation"] > a',
 
     WE_WORK_REMOTELY_JOB_SECTION_SELECTOR: '.jobs-container > .jobs',

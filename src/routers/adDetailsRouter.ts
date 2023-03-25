@@ -32,6 +32,14 @@ export default class AdDetailsRouter {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeEuroJobsDetails);
         });
 
+        AdDetailsRouter.router.get('/scrape-euro-job-sites-ad-details', (req, res) => {
+            AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeEuroJobSitesDetails);
+        });
+
+        AdDetailsRouter.router.get('/scrape-graduateland-ad-details', (req, res) => {
+            AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeGraduatelandDetails);
+        });
+
         return AdDetailsRouter.router;
     }
 
