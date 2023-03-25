@@ -1,6 +1,6 @@
 import express from 'express';
-import scraperService from './serviceLayer/scraperService.js';
-import * as scrapers from './serviceLayer/scrapers/index.js';
+import scraperService from './serviceLayer/jobAdScraperService.js';
+import * as scrapers from './serviceLayer/jobAdScrapers/index.js';
 import Constants from './constants.js';
 import RequestValidator from './requestValidator.js';
 
