@@ -55,6 +55,7 @@ const Constants = {
     HREF_SELECTOR: 'href',
     ARIALABEL_SELECTOR: 'aria-label',
     ID_SELECTOR: 'id',
+    DATETIME_SELECTOR: 'datetime',
 
     GRADUATELAND_JOBLINKS_SELECTOR: '.job-box',
     EURES_JOBLINKS_SELECTOR: '.ecl-link--standalone',
@@ -67,6 +68,18 @@ const Constants = {
     SIMPLY_HIRED_JOBLINKS_SELECTOR: 'h3[data-testid="searchSerpJobTitle"] > a',
     WE_WORK_REMOTELY_JOBLINKS_SELECTOR: 'li > a',
     WE_WORK_REMOTELY_JOBLINKS_SELECTOR_TWO: '.jobs > article > ul > li > a',
+
+    ADZUNA_DETAILS_EXTEND_AD_BUTTON_SELECTOR: '.ui-foreign-click-description-toggle > a',
+    ADZUNA_DETAILS_JOB_TITLE_SELECTOR: 'h1',
+    ADZUNA_DETAILS_SUBTITLE_SECTION_SELECTOR: 'div > div > table > tbody > tr > td > strong',
+    ADZUNA_DETAILS_JOB_DESCRIPTION_SELECTOR: '.ui-foreign-click-description > section',
+
+    ARBEITNOW_JOB_TITLE_SELECTOR: 'a[itemprop="url"]',
+    ARBEITNOW_COMPANY_NAME_SELECTOR: 'a[itemprop="hiringOrganization"]',
+    ARBEITNOW_COMPANY_LOCATION_SELECTOR: '.list-none > div > div > div > div > div > div > p',
+    ARBEITNOW_JOB_DETAILS_SELECTOR: 'button', // .list-none > 
+    ARBEITNOW_POSTED_DATE_SELECTOR: 'time',
+    ARBEITNOW_JOB_DESCRIPTION_SELECTOR: 'div[itemprop="description"]',
 
     SIMPLY_HIRED_NAVIGATION_BUTTONS_SELECTOR: 'nav[role="navigation"] > a',
 
@@ -104,6 +117,7 @@ const Constants = {
 
     ADS_SCRAPED_SUCCESSFULLY: 'Ads scraped and stored into the database successfully!',
     NO_ADS_FOUND_TO_BE_SCRAPED_MESSAGE: 'No ads have been found on the page given your query.',
+    NO_DETAILS_FOUND_TO_BE_SCRAPED_MESSAGE: 'There are no job details to be scraped at the moment.',
     BAD_REQUEST_MESSAGE: 'The request parameters received are faulty.',
 
 

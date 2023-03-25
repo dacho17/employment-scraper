@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import AppRouter from './router.js';
+import AdDetailsRouter from './routers/adDetailsRouter.js';
 
 const app = express();
 const port = 8180;
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
 });
 
 app.use(AppRouter.openRoutes());
+app.use(AdDetailsRouter.openRoutes());
 app.listen(port, () => {
   console.log(`Server is now listening on port ${port} `)
 });
