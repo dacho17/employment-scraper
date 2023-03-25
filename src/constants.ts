@@ -86,6 +86,12 @@ const Constants = {
     CAREER_BUILDER_DETAILS_JOB_DESCRIPTION_SELECTOR: '.jdp-left-content',
     CAREER_BUILDER_DETAILS_REQUIRED_SKILLS_SELECTOR: '.jdp-required-skills > ul > li',
 
+    CAREER_JET_DETAILS_JOB_TITLE_SELECTOR: '#job > div > header > h1',
+    CAREER_JET_DETAILS_COMPANY_NAME_SELECTOR: '#job > div > header > .company',
+    CAREER_JET_DETAILS_JOB_SUBTITLE_SELECTOR: '#job > div > header > .details > li',
+    CAREER_JET_DETAILS_POSTED_AGO_SELECTOR: '#job > div > header > .tags > li > span',
+    CAREER_JET_DETAILS_JOB_DESCRIPTION_SELECTOR: '#job > div > .content',    
+
     SIMPLY_HIRED_NAVIGATION_BUTTONS_SELECTOR: 'nav[role="navigation"] > a',
 
     WE_WORK_REMOTELY_JOB_SECTION_SELECTOR: '.jobs-container > .jobs',

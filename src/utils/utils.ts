@@ -66,13 +66,17 @@ export default class Utils {
         return datefns.addDays(Date.now(), -postedDaysAgo);
     }
 
-    getPostedDate4CareerJet(textContainingPostedAgo: string): Date {
+    static getPostedDate4CareerJet(textContainingPostedAgo: string): Date {
         const [postedAgoText, timeframe, _] = textContainingPostedAgo.trim().split(constants.WHITESPACE)
         const postedAgo = parseInt(postedAgoText);
-    
-        if (isNaN(postedAgo)) return new Date(null);
-    
-        if (timeframe.includes(AdPostedAgoTimeframe.HOUR)) {
+
+        if (timeframe.includes(AdPostedAgoTimeframe.NOW)) {
+            return new Date(Date.now());
+        }
+
+        if (isNaN(postedAgo)) {
+            return new Date(null);
+        } else if (timeframe.includes(AdPostedAgoTimeframe.HOUR)) {
             return datefns.addHours(Date.now(), -postedAgo);
         }
         else if (timeframe.includes(AdPostedAgoTimeframe.DAY)) {

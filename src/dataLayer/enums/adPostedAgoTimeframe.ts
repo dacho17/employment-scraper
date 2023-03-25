@@ -1,4 +1,5 @@
 export enum AdPostedAgoTimeframe {
+    NOW = 'now',
     TODAY = 'today',
     HOUR = 'hour',
     DAY = 'day',
