@@ -98,8 +98,12 @@ const Constants = {
     CV_LIBRARY_DETAILS_COMPANY_NAME_SELECTOR: '.job__header-posted > span > a',
     CV_LIBRARY_DETAILS_REMOTE_POSITION_SELECTOR: 'job__icon--remote',
     CV_LIBRARY_DETAILS_JOB_DESCRIPTION_SELECTOR: '.job__description',
-    CV_LIBRARY_DETAILS_JOB_DETAILS_TERM_SELECTOR: '.job__details-term',
+    CV_LIBRARY_DETAILS_JOB_DETAILS_KEY_SELECTOR: '.job__details-term',
     CV_LIBRARY_DETAILS_JOB_DETAILS_VALUE_SELECTOR: '.job__details-value',
+
+    EURO_JOBS_DETAILS_JOB_TITLE_SELECTOR: '.listingInfo > h2',
+    EURO_JOBS_DETAILS_JOB_DETAILS_KEY_SELECTOR: '.displayFieldBlock > h3',
+    EURO_JOBS_DETAILS_JOB_DETAILS_VALUE_SELECTOR: '.displayField',
 
     SIMPLY_HIRED_NAVIGATION_BUTTONS_SELECTOR: 'nav[role="navigation"] > a',
 

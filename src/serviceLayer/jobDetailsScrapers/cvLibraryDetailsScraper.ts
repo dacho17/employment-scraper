@@ -25,20 +25,20 @@ export default async function scrapeData(page: any, url: string, jobDetails: Job
     const jobDescription = await page.evaluate(el => el.innerText, jobDescriptionElement);
     jobDetails.jobDescription = jobDescription.trim();
 
-    const jobDetailsTermElements = await page.$$(Constants.CV_LIBRARY_DETAILS_JOB_DETAILS_TERM_SELECTOR);
+    const jobDetailsKeyElements = await page.$$(Constants.CV_LIBRARY_DETAILS_JOB_DETAILS_KEY_SELECTOR);
     const jobDetailsValueElements = await page.$$(Constants.CV_LIBRARY_DETAILS_JOB_DETAILS_VALUE_SELECTOR);
 
     let details = '';
     const workLocation = await page.evaluate(el => el.innerText, jobDetailsValueElements[0]);
     const salary = await page.evaluate(el => el.innerText, jobDetailsValueElements[1]);
     jobDetailsValueElements.shift(); jobDetailsValueElements.shift();
-    jobDetailsTermElements.shift(); jobDetailsTermElements.shift();
+    jobDetailsKeyElements.shift(); jobDetailsKeyElements.shift();
     jobDetails.salary = salary.trim();
     jobDetails.workLocation = workLocation.trim();
-    for (let i = 0; i < jobDetailsTermElements.length; i++) {
-        const term = await page.evaluate(el => el.innerText, jobDetailsTermElements[i]);
+    for (let i = 0; i < jobDetailsKeyElements.length; i++) {
+        const key = await page.evaluate(el => el.innerText, jobDetailsKeyElements[i]);
         const value = await page.evaluate(el => el.innerText, jobDetailsValueElements[i]);
-        details += term + Constants.EQUALS + value + Constants.JOB_DESCRIPTION_COMPOSITION_DELIMITER;
+        details += key + Constants.EQUALS + value + Constants.JOB_DESCRIPTION_COMPOSITION_DELIMITER;
     }
     jobDetails.jobDetails = details.trim();
 
