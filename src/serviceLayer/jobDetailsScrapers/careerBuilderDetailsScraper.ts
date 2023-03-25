@@ -2,7 +2,27 @@ import Browser from "../../browserAPI";
 import Constants from "../../constants";
 import { JobDetails } from "../../dataLayer/models/jobDetails";
 
-async function scrapeData(page: any,): Promise<JobDetails> {
+async function scrapeSubtitleSection(page: any, adDetails: JobDetails) {
+    // Properties on the website: companyName - maybe, officeLoc, timeEngag (+ rem)
+    const jobSubtitleElement = await page.$$(Constants.CAREER_BUILDER_DETAILS_JOB_SUBTITLE_SELECTOR);
+    let firstSubtitleProperty = await page.evaluate(elem => elem.innerText, jobSubtitleElement[0]);
+    firstSubtitleProperty = firstSubtitleProperty.trim();
+
+    let secondSubtitleProperty = await page.evaluate(elem => elem.innerText, jobSubtitleElement[1]);
+    secondSubtitleProperty = secondSubtitleProperty.trim();
+    
+    if (jobSubtitleElement.length === 3) {
+        const thirdSubtitleProperty = await page.evaluate(elem => elem.innerText, jobSubtitleElement[2]);
+        adDetails.companyName = firstSubtitleProperty;
+        adDetails.companyLocation = secondSubtitleProperty
+        adDetails.timeEngagement = thirdSubtitleProperty.trim();
+    } else {
+        adDetails.companyLocation = firstSubtitleProperty;
+        adDetails.timeEngagement = secondSubtitleProperty;
+    }
+} 
+
+async function scrapeData(page: any): Promise<JobDetails> {
     const adDetails: JobDetails = {
         jobTitle: null,
         companyName: null,
@@ -17,14 +37,8 @@ async function scrapeData(page: any,): Promise<JobDetails> {
     adDetails.jobTitle = await page.evaluate(el => el.innerText, jobTitleElement);
     adDetails.jobTitle.trim();
     
-    // officeLoc, timeEngag (+ rem)Conts
-    const jobSubtitleElement = await page.$$(Constants.CAREER_BUILDER_DETAILS_JOB_SUBTITLE_SELECTOR);
-    const officeLocation = await page.evaluate(elem => elem.innerText, jobSubtitleElement[0]);
-    adDetails.companyLocation = officeLocation.trim();
-
-    const timeEngagement = await page.evaluate(elem => elem.innerText, jobSubtitleElement[1]);
-    adDetails.timeEngagement = timeEngagement.trim(); 
-
+    await scrapeSubtitleSection(page, adDetails);
+    
     const jobDescriptionElement = await page.$(Constants.CAREER_BUILDER_DETAILS_JOB_DESCRIPTION_SELECTOR);
     const jobDescription = await page.evaluate(elem => elem.innerText, jobDescriptionElement);
     adDetails.jobDescription = jobDescription.trim();
