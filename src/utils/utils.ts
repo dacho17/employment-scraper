@@ -1,4 +1,5 @@
 import datefns from 'date-fns';
+import { addHours, addDays, addWeeks, addMonths} from 'date-fns';
 import constants from '../constants.js';
 import { AdPostedAgoTimeframe } from '../dataLayer/enums/adPostedAgoTimeframe.js';
 
@@ -77,17 +78,43 @@ export default class Utils {
         if (isNaN(postedAgo)) {
             return new Date(null);
         } else if (timeframe.includes(AdPostedAgoTimeframe.HOUR)) {
-            return datefns.addHours(Date.now(), -postedAgo);
+            return addHours(Date.now(), -postedAgo);
         }
         else if (timeframe.includes(AdPostedAgoTimeframe.DAY)) {
-            return datefns.addDays(Date.now(), -postedAgo);
+            return addDays(Date.now(), -postedAgo);
         }
         else if (timeframe.includes(AdPostedAgoTimeframe.MONTH)) {
-            return datefns.addMonths(Date.now(), -postedAgo);
+            return addMonths(Date.now(), -postedAgo);
         }
         else {
             return new Date(null);
         }
+    }
+
+    static getPostedDate4CvLibrary(textContainingPostedAgo: string): Date {
+        const [firstPart, secondPart, _] = textContainingPostedAgo.trim().split(constants.WHITESPACE)
+
+        if (!isNaN(Date.parse(firstPart))) {
+            return new Date(Date.parse(firstPart));
+        } else if (firstPart.includes(AdPostedAgoTimeframe.TODAY)) {
+            return new Date(Date.now());
+        } else if (firstPart.includes(AdPostedAgoTimeframe.YESTERDAY)) {
+            return addDays(Date.now(), -1);
+        } else if (firstPart.includes('a')) {
+            console.log('about to read addweeks');
+            const newDate =  addWeeks(Date.now(), -1);
+            console.log(newDate)
+            return newDate;
+        } else if (!isNaN(parseInt(firstPart))) {
+            if (secondPart.includes(AdPostedAgoTimeframe.DAY)) {
+                return addDays(Date.now(), -parseInt(firstPart))
+            } else if (secondPart.includes(AdPostedAgoTimeframe.WEEK)) {
+                return addWeeks(Date.now(), -parseInt(firstPart));
+            } else {
+                return new Date(null);
+            }
+        }
+        return new Date(null);
     }
 
     getNumberOfApplicants(textContainingNumberOfApplicants) {

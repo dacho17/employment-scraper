@@ -24,7 +24,6 @@ const Constants = {
     LN_DETAIL_ADCONTENT_SELECTOR: '.show-more-less-html__markup',
     LN_DETAIL_JOBPROPS_SELECTOR: '.description__job-criteria-text--criteria',
 
-    
     LN_AD_JOB_LINK_PROPS: ['name', 'href'],
     LN_AD_JOB_TITLE_SELECTOR: '.base-search-card__title',
     LN_AD_COMPANY_NAME_SELECTOR: '.base-search-card__subtitle',
@@ -46,6 +45,7 @@ const Constants = {
     UNDERSCORE: '_',
     WHITESPACE: ' ',
     COMMA: ',',
+    EQUALS: '=',
 
     WHITESPACE_URL_ENCODING: '%20',
     UFT_PLUS_SIGN_ENCODING: '%2B',
@@ -56,6 +56,7 @@ const Constants = {
     ARIALABEL_SELECTOR: 'aria-label',
     ID_SELECTOR: 'id',
     DATETIME_SELECTOR: 'datetime',
+    JOB_DESCRIPTION_COMPOSITION_DELIMITER: ';; ',
 
     GRADUATELAND_JOBLINKS_SELECTOR: '.job-box',
     EURES_JOBLINKS_SELECTOR: '.ecl-link--standalone',
@@ -90,7 +91,15 @@ const Constants = {
     CAREER_JET_DETAILS_COMPANY_NAME_SELECTOR: '#job > div > header > .company',
     CAREER_JET_DETAILS_JOB_SUBTITLE_SELECTOR: '#job > div > header > .details > li',
     CAREER_JET_DETAILS_POSTED_AGO_SELECTOR: '#job > div > header > .tags > li > span',
-    CAREER_JET_DETAILS_JOB_DESCRIPTION_SELECTOR: '#job > div > .content',    
+    CAREER_JET_DETAILS_JOB_DESCRIPTION_SELECTOR: '#job > div > .content',
+
+    CV_LIBRARY_DETAILS_JOB_TITLE_SELECTOR: '.job__title > span',
+    CV_LIBRARY_DETAILS_POSTED_AGO_SELECTOR: '.job__header-posted > span',
+    CV_LIBRARY_DETAILS_COMPANY_NAME_SELECTOR: '.job__header-posted > span > a',
+    CV_LIBRARY_DETAILS_REMOTE_POSITION_SELECTOR: 'job__icon--remote',
+    CV_LIBRARY_DETAILS_JOB_DESCRIPTION_SELECTOR: '.job__description',
+    CV_LIBRARY_DETAILS_JOB_DETAILS_TERM_SELECTOR: '.job__details-term',
+    CV_LIBRARY_DETAILS_JOB_DETAILS_VALUE_SELECTOR: '.job__details-value',
 
     SIMPLY_HIRED_NAVIGATION_BUTTONS_SELECTOR: 'nav[role="navigation"] > a',
 

@@ -1,3 +1,4 @@
+import Browser from "../browserAPI";
 import { JobDetails } from "../dataLayer/models/jobDetails";
 
 async function scrape(scraperFunc) {
@@ -14,11 +15,35 @@ async function scrape(scraperFunc) {
     
     // TODO: validate urls before accessing them? 
 
+    // Adzuna 'https://www.adzuna.com/details/3993306546'
+    // ArbeitNow 'https://www.arbeitnow.com/view/roetgen-hauptstrasse-padagogische-fachkraft-in-der-krippe-dibber-ggmbh-208571'
+    // CareerBuilder 'https://www.careerbuilder.com/job/JMD8868H59367G27E5V'
+    // CareerJet 'https://www.careerjet.com/jobad/usabd6878701761e42480d02bbaa3763b0'
+    // CVlibrary 'https://www.cv-library.co.uk/job/218950491/Python-Developer?hlkw=python-developer&sid=1f2049be-888e-4f1e-b15d-f4ecf1b93621'
 
-
+    const url = 'https://www.cv-library.co.uk/job/218950491/Python-Developer?hlkw=python-developer&sid=1f2049be-888e-4f1e-b15d-f4ecf1b93621';
     let scrapedJobDetails: JobDetails[] | null = null;
     try {
-        scrapedJobDetails = await scraperFunc();
+        const browser = await Browser.run();
+        const page = await Browser.openPage(browser, url);
+        console.log('About to scrape ' + url);
+
+        const newJobDetails: JobDetails = {
+            jobTitle: null,
+            companyName: null,
+            companyLocation: null,
+            jobDetails: null,
+            timeEngagement: null,
+            salary: null,
+            requiredSkills: null,
+            postedDate: null,
+            jobDescription: null
+        };
+
+        scrapedJobDetails = await scraperFunc(page, url, newJobDetails);
+
+        console.log('scrape finished');
+        await Browser.close(browser);
     } catch (exception) {
       console.log(exception.message);
       return {
