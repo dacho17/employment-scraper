@@ -126,6 +126,16 @@ const Constants = {
     INDEED_DETAILS_JOB_DESCRIPTION_SELECTOR: '#jobDescriptionText',
     INDEED_DETAILS_POSTED_AGO_SELECTOR: '.jobsearch-JobComponent-description > div:last-child > ul > li',
     
+    JOB_FLUENT_DETAILS_JOB_TITLE_SELECTOR: 'span[itemprop="title"]',
+    JOB_FLUENT_DETAILS_COMPANY_LOCATION_SELECTOR: 'span[itemprop="jobLocation"]',
+    JOB_FLUENT_DETAILS_COMPANY_NAME_SELECTOR: 'span[itemprop="hiringOrganization"] > span', 
+    JOB_FLUENT_DETAILS_COMPANY_LINK_SELECTOR: '.company-features > ul > li > p > a',
+    JOB_FLUENT_DETAILS_COMPANY_DETAILS_SELECTOR: '.company-features > ul',
+    JOB_FLUENT_DETAILS_REMOTE_SELECTOR: 'span[data-original-title="Remote"]',
+    JOB_FLUENT_DETAILS_TIME_ENGAGEMENT_SELECTOR: 'b[itemprop="employmentType"]',
+    JOB_FLUENT_DETAILS_INTERNSHIP_SELECTOR: 'span[data-original-title="No internship"]',
+    JOB_FLUENT_DETAILS_REQUIRED_SKILLS: 'meta[itemprop="skills"]', // get data from content attribute
+    JOB_FLUENT_DETAILS_JOB_DESCRIPTION: 'div[itemprop="description"]',
 
     SIMPLY_HIRED_NAVIGATION_BUTTONS_SELECTOR: 'nav[role="navigation"] > a',
 

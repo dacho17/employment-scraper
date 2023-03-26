@@ -1,16 +1,18 @@
 export class JobDetails {
     jobTitle: string;
-    companyName: string;
-    companyLocation: string;
-    companyLink?: string;
-    companyDescription?: string;
     workLocation?: string;
     jobDetails?: string;
     timeEngagement: string;
-    remote?: boolean;
+    isRemote?: boolean;
+    isInternship?: boolean;
     salary?: string;
     requiredSkills?: string;
     postedDate?: number;
     jobDescription: string;
     additionalJobLink?: string;
+    companyName: string;
+    companyLocation: string;
+    companyLink?: string;
+    companyDescription?: string;
+    companyDetails?: string;
 }

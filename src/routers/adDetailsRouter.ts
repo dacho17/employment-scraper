@@ -44,6 +44,10 @@ export default class AdDetailsRouter {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeIndeedDetails);
         });
 
+        AdDetailsRouter.router.get('/scrape-job-fluent-details', (req, res) => {
+            AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeJobFluentDetails);
+        });
+
         return AdDetailsRouter.router;
     }
 

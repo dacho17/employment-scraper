@@ -18,7 +18,7 @@ export default async function scrapeData(page: any, url: string, jobDetails: Job
 
     const remoteJobElement = await page.$(Constants.CV_LIBRARY_DETAILS_REMOTE_POSITION_SELECTOR);
     if (remoteJobElement) {
-        jobDetails.remote = true;
+        jobDetails.isRemote = true;
     }
 
     const jobDescriptionElement = await page.$(Constants.CV_LIBRARY_DETAILS_JOB_DESCRIPTION_SELECTOR);

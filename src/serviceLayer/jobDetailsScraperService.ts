@@ -15,6 +15,7 @@ async function scrape(scraperFunc) {
     
     // TODO: validate urls before accessing them? 
 
+    // NOTE: some test urls which can be used per website when scraping job Details
     // Adzuna 'https://www.adzuna.com/details/3993306546'
     // ArbeitNow 'https://www.arbeitnow.com/view/roetgen-hauptstrasse-padagogische-fachkraft-in-der-krippe-dibber-ggmbh-208571'
     // CareerBuilder 'https://www.careerbuilder.com/job/JMD8868H59367G27E5V'
@@ -24,8 +25,9 @@ async function scrape(scraperFunc) {
     // EuroJobSistes 'https://www.euroengineerjobs.com/job_display/235949/Design_Engineer_LSS_Large_Space_Structures_Eching'
     // Graduateland 'https://graduateland.com/job/51759939/13'
     // Indeed 'https://www.indeed.com/viewjob?jk=e7db9718b72e5d7e&tk=1gsdgpri1kp3n801&from=serp&vjs=3'
+    // JobFluent 'https://www.jobfluent.com/jobs/senior-php-developer-drupal-madrid-8d3681?result=1'
 
-    const url = 'https://www.indeed.com/viewjob?jk=e7db9718b72e5d7e&tk=1gsdgpri1kp3n801&from=serp&vjs=3';
+    const url = 'https://www.jobfluent.com/jobs/senior-php-developer-drupal-madrid-8d3681?result=1';
     let scrapedJobDetails: JobDetails[] | null = null;
     try {
         const browser = await Browser.run();
