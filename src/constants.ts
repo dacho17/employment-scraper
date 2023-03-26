@@ -175,6 +175,13 @@ const Constants = {
     SIMPLY_HIRED_DETAILS_JOB_REQUIREMENTS_SELECTOR: 'div[data-testid="viewJobQualificationsContainer"]',
     SIMPLY_HIRED_DETAILS_JOB_DESCRIPTION_SELECTOR: 'div[data-testid="viewJobBodyJobFullDescriptionContent"]',
 
+    SNAPHUNT_DETAILS_JOB_TITLE_SELECTOR: 'h1[class="JobDetailsPage-jobRole"]',
+    SNAPHUNT_DETAILS_WORK_LOCATION_SELECTOR: '.JobDetailsPage-section1 > div:nth-child(2)',
+    SNAPHUNT_DETAILS_JOB_DETAILS_SELECTOR: '.JobDetailsPageWrapper > div:nth-child(4) > div > div > div > div',
+    SNAPHUNT_DETAILS_JOB_OFFER_SELECTOR: '.jobDetails',
+    SNAPHUNT_DETAILS_JOB_DESCRIPTION_SELECTOR: '.JobDetailsPageWrapper > div:nth-child(4) > div > div > div > div:nth-child(3)',
+    SNAPHUNT_DETAILS_JOB_REQUIREMENTS_SELECTOR: '.JobDetailsPageWrapper > div:nth-child(4) > div > div > div > div:nth-child(4)',
+
     SIMPLY_HIRED_NAVIGATION_BUTTONS_SELECTOR: 'nav[role="navigation"] > a',
 
     WE_WORK_REMOTELY_JOB_SECTION_SELECTOR: '.jobs-container > .jobs',

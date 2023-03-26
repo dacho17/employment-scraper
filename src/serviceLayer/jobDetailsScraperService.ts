@@ -31,8 +31,9 @@ async function scrape(scraperFunc) {
     // NoFluff 'https://nofluffjobs.com/job/software-configuration-engineer-fis-technology-services-poland-warsaw-1'
     // Qreer 'https://www.qreer.com/jobs/view/13785/sr-product-engineer#keyword%3Apython+developer%2Fpage%3A2'
     // SimplyHired 'https://www.simplyhired.com/job/0kZxAj4Qs57dsIXfJaTCknyUN5hw_zeL0eLCoEwyP4uZtt8b0DqKfA'
+    // Snaphunt 'https://snaphunt.com/jobs/HMQCNANIJZ'
 
-    const url = 'https://www.simplyhired.com/job/0kZxAj4Qs57dsIXfJaTCknyUN5hw_zeL0eLCoEwyP4uZtt8b0DqKfA';
+    const url = 'https://snaphunt.com/jobs/HMQCNANIJZ';
     let scrapedJobDetails: JobDetails[] | null = null;
     try {
         const browser = await Browser.run();

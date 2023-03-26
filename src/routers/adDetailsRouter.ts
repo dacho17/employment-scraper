@@ -68,6 +68,10 @@ export default class AdDetailsRouter {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeSimplyHiredDetails);
         });
 
+        AdDetailsRouter.router.get('/scrape-snaphunt-details', (req, res) => {
+            AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeSnaphuntDetails);
+        });
+
         return AdDetailsRouter.router;
     }
 
