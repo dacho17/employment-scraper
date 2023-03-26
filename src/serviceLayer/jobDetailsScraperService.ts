@@ -23,8 +23,9 @@ async function scrape(scraperFunc) {
     // EuroJobs 'https://eurojobs.com/united-kingdom/job/275931023/python-developer-oxfordshire.html?searchId=1679730379.4147&page=1'
     // EuroJobSistes 'https://www.euroengineerjobs.com/job_display/235949/Design_Engineer_LSS_Large_Space_Structures_Eching'
     // Graduateland 'https://graduateland.com/job/51759939/13'
+    // Indeed 'https://www.indeed.com/viewjob?jk=e7db9718b72e5d7e&tk=1gsdgpri1kp3n801&from=serp&vjs=3'
 
-    const url = 'https://www.euroengineerjobs.com/job_display/235949/Design_Engineer_LSS_Large_Space_Structures_Eching';
+    const url = 'https://www.indeed.com/viewjob?jk=e7db9718b72e5d7e&tk=1gsdgpri1kp3n801&from=serp&vjs=3';
     let scrapedJobDetails: JobDetails[] | null = null;
     try {
         const browser = await Browser.run();

@@ -40,6 +40,10 @@ export default class AdDetailsRouter {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeGraduatelandDetails);
         });
 
+        AdDetailsRouter.router.get('/scrape-indeed-ad-details', (req, res) => {
+            AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeIndeedDetails);
+        });
+
         return AdDetailsRouter.router;
     }
 

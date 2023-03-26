@@ -6,3 +6,4 @@ export { default as scrapeCvLibraryDetails } from './cvLibraryDetailsScraper.js'
 export { default as scrapeEuroJobsDetails } from './euroJobsDetailsScraper.js';
 export { default as scrapeEuroJobSitesDetails } from './euroJobSitesDetailsScraper.js';
 export { default as scrapeGraduatelandDetails } from './graduatelandDetailsScraper.js';
+export { default as scrapeIndeedDetails } from './indeedDetailsScraper.js';

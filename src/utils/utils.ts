@@ -59,12 +59,19 @@ export default class Utils {
         }
     }
 
-    getPostedDate4Indeed(textContainingPostedAgo: string): Date {
-        const postedDaysAgo = parseInt(textContainingPostedAgo.split(constants.WHITESPACE)[1]);
+    static getPostedDate4Indeed(textContainingPostedAgo: string): Date {
+        const [_, postedAgoText, timeframe] = textContainingPostedAgo.trim().split(constants.WHITESPACE);
+        const postedAgo = parseInt(postedAgoText);
     
-        if (isNaN(postedDaysAgo)) return new Date(null);
+        if (isNaN(postedAgo)) return new Date(null);
     
-        return datefns.addDays(Date.now(), -postedDaysAgo);
+        if (timeframe.includes(AdPostedAgoTimeframe.DAY)) {
+            return addDays(Date.now(), -postedAgo);
+        } else if (timeframe.includes(AdPostedAgoTimeframe.MONTH)) {
+            return addMonths(Date.now(), -postedAgo);
+        }
+
+        return new Date(null);
     }
 
     static getPostedDate4CareerJet(textContainingPostedAgo: string): Date {

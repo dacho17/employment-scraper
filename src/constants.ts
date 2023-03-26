@@ -116,6 +116,16 @@ const Constants = {
     GRADUATELAND_DETAILS_JOB_DETAILS_VALUES_SELECTOR: '.content-description > p > span',
     GRADUATELAND_DETAILS_JOB_DESCRIPTION_SELECTOR: '.job-content',
 
+    INDEED_DETAILS_JOB_TITLE_SELECTOR: '.jobsearch-JobInfoHeader-title > span',
+    INDEED_DETAILS_COMPANY_NAME_AND_LINK_SELECTOR: '.jobsearch-CompanyAvatar > div > div > div > a',
+    INDEED_DETAILS_COMPANY_DESCRIPTION_SELECTOR: '.jobsearch-CompanyAvatar > div > div:last-child',
+    INDEED_DETAILS_COMPANY_LOCATION_SELECTOR: '.jobsearch-CompanyInfoWithReview > div > div > div > div:nth-child(2)',
+    INDEED_DETAILS_SALARY_SELECTOR: '#salaryInfoAndJobType > span:nth-child(1)',
+    INDEED_DETAILS_TIME_ENGAGEMENT_SELECTOR: '#salaryInfoAndJobType > span:nth-child(2)',
+    INDEED_DETAILS_JOB_DETAILS_SELECTOR: '.jobsearch-JobDescriptionSection-section',
+    INDEED_DETAILS_JOB_DESCRIPTION_SELECTOR: '#jobDescriptionText',
+    INDEED_DETAILS_POSTED_AGO_SELECTOR: '.jobsearch-JobComponent-description > div:last-child > ul > li',
+    
 
     SIMPLY_HIRED_NAVIGATION_BUTTONS_SELECTOR: 'nav[role="navigation"] > a',
 

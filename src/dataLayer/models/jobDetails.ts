@@ -3,6 +3,7 @@ export class JobDetails {
     companyName: string;
     companyLocation: string;
     companyLink?: string;
+    companyDescription?: string;
     workLocation?: string;
     jobDetails?: string;
     timeEngagement: string;
