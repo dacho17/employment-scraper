@@ -156,6 +156,16 @@ const Constants = {
     NO_FLUFF_DETAILS_COMPANY_INFO_SELECTOR: '#posting-company > div',
     NO_FLUFF_DETAILS_SHOW_MORE_SELECTOR: 'span[data-cy="text-fold"]',
 
+    QREER_DETAILS_JOB_TITLE_SELECTOR: 'header > h1',
+    QREER_DETAILS_JOB_DESCRIPTION_SELECTOR: '.job-description',
+    QREER_DETAILS_JOB_REQUIREMENTS_SELECTOR: '.skillsTable',
+    QREER_DETAILS_COMPANY_LINK_SELECTOR: '.company-info > a',
+    QREER_DETAILS_COMPANY_NAME_SELECTOR: '.company-info > h3',
+    QREER_DETAILS_COMPANY_LOCATION_SELECTOR: '.company-info > div',
+    QREER_DETAILS_COMPANY_INFO_SELECTOR: '.company-info',
+    QREER_DETAILS_JOB_DETAILS_SELECTOR: '.job-info-block',
+    QREER_DETAILS_REGISTER_FORM_BUTTON: '#qreerRegisterSuggClose',
+
     SIMPLY_HIRED_NAVIGATION_BUTTONS_SELECTOR: 'nav[role="navigation"] > a',
 
     WE_WORK_REMOTELY_JOB_SECTION_SELECTOR: '.jobs-container > .jobs',

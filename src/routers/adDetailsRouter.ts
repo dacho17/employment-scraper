@@ -60,6 +60,10 @@ export default class AdDetailsRouter {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeNoFluffDetails);
         });
 
+        AdDetailsRouter.router.get('/scrape-qreer-details', (req, res) => {
+            AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeQreerDetails);
+        });
+
         return AdDetailsRouter.router;
     }
 
