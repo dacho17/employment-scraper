@@ -1,6 +1,7 @@
 import Constants from "../../constants";
 import { JobDetails } from "../../dataLayer/models/jobDetails";
 
+// jobTitle, companyName, officeLocation, description, timeEngagements
 export default async function scrapeData(page: any, url: string, jobDetails: JobDetails): Promise<JobDetails> {
     const extendAdButton = await page.$(Constants.ADZUNA_DETAILS_EXTEND_AD_BUTTON_SELECTOR);    // button to extend the ad
     await page.evaluate(button => button.click(), extendAdButton);

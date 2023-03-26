@@ -6,6 +6,7 @@ import { JobAd } from '../../dataLayer/models/jobAd.js';
 import Utils from '../../utils/utils.js';
 
 // NOTE: this method is tricky, make sure it works so we do not produce faulty links
+// jobTitle, companyName, companyLocation, postedDate, 
 function formatJobTitleForJobLink(jobTitle: string): string {
     let changedJobTitle = jobTitle.toLowerCase().replace(/[\s+]/g, ' ');
     // changedJobTitle = changedJobTitle.replace(/\s/g, '-');
@@ -25,6 +26,8 @@ async function resolveCookieWindowIfPresent(page) {
     }
 }
 
+// this scraper will probably not have a detailed version due to sites being of different formats.
+// TODO: needs to support storing jobDetails and jobDescription which it does not ATM
 export default async function scrapeAds(reqJobTitle: string, reqNofAds: number): Promise<JobAd[]> {
     const formattedJobTitle = reqJobTitle.replace(Constants.WHITESPACE, Constants.WHITESPACE_URL_ENCODING);
 
@@ -36,12 +39,26 @@ export default async function scrapeAds(reqJobTitle: string, reqNofAds: number):
 
         await resolveCookieWindowIfPresent(page);   // check if there is a button to confirm
         
-        const jobTitles = await page.$$(Constants.JOBS_IN_NETWORK_JOBTITLE_SELECTOR);
-        const jobIds = await page.$$(Constants.JOBS_IN_NETWORK_JOBID_SELECTOR);
-        console.log("about to scrape " + scrapeTracker.url + ". " + jobTitles.length + " job ads have been detected on the page");
-        for (let i = 0; i < jobTitles.length; i++) {
-            const jobTitle = await page.evaluate(el => el.innerText, jobTitles[i]);
-            const jobId = await page.evaluate((el, selector) => el.getAttribute(selector), jobIds[i], Constants.ID_SELECTOR);
+        const jobIdElements = await page.$$(Constants.JOBS_IN_NETWORK_JOBID_SELECTOR);
+        const jobTitlesElements = await page.$$(Constants.JOBS_IN_NETWORK_JOB_TITLE_SELECTOR);
+        const companyNamesElements = await page.$$(Constants.JOBS_IN_NETWORK_COMPANY_NAME_SELECTOR);
+        const companyLocationsElements = await page.$$(Constants.JOBS_IN_NETWORK_COMPANY_LOCATION_SELECTOR);
+        const postedAgoElements = await page.$$(Constants.JOBS_IN_NETWORK_POSTED_AGO_SELECTOR);
+        const jobDetailsElements = await page.$$(Constants.JOBS_IN_NETWORK_JOB_DETAILS_SELECTOR);
+        const jobDescriptionElements = await page.$$(Constants.JOBS_IN_NETWORK_JOB_DESCRIPTION_SELECTOR);
+
+        console.log("about to scrape " + scrapeTracker.url + ". " + jobTitlesElements.length + " job ads have been detected on the page");
+        for (let i = 0; i < jobTitlesElements.length; i++) {
+            const jobTitle = await page.evaluate(el => el.innerText, jobTitlesElements[i]);
+            const companyName = await page.evaluate(el => el.innerText, companyNamesElements[i]);
+            const companyLocation = await page.evaluate(el => el.innerText, companyLocationsElements[i]);
+            const jobDetails = await page.evaluate(el => el.textContent, jobDetailsElements[i]);
+            const jobDescription = await page.evaluate(el => el.textContent, jobDescriptionElements[i]);
+            const jobId = await page.evaluate((el, selector) => el.getAttribute(selector), jobIdElements[i], Constants.ID_SELECTOR);
+            const postedAgo = await page.evaluate(el => el.innerText, postedAgoElements[i]);
+            const postedDate = Utils.getPostedDate4JobsInNetwork(postedAgo);
+            const postedTimestamp = Utils.transformToTimestamp(postedDate.toString());
+
             const jobLink = `${Constants.JOBS_IN_NETWORK_URL}/jobs/${formatJobTitleForJobLink(jobTitle.trim()) + jobId.trim()}`;
 
             const currentTimestap = Utils.transformToTimestamp((new Date(Date.now())).toString());
@@ -49,14 +66,22 @@ export default async function scrapeAds(reqJobTitle: string, reqNofAds: number):
                 createdDate: currentTimestap,
                 updatedDate: currentTimestap,
                 source: AdSource.JOBS_IN_NETWORK,
-                jobLink: jobLink
+                jobLink: jobLink,
+                jobTitle: jobTitle.trim(),
+                companyName: companyName.trim(),
+                companyLocation: companyLocation.trim(),
+                postingDate: postedTimestamp,
+                // jobDescription: jobDescription.trim(),
+                // jobDetails: jobDetails.trim()
             };
+
+
             scrapeTracker.scrapedAds.push(newAd);
         }
     
-        if (!jobTitles || jobTitles.length == 0) break; 
+        if (!jobTitlesElements || jobTitlesElements.length == 0) break; 
         scrapeTracker.currentPage += 1;
-        scrapeTracker.nOfScrapedAds += jobTitles.length;
+        scrapeTracker.nOfScrapedAds += jobTitlesElements.length;
     }
 
     console.log(scrapeTracker.scrapedAds.length + " ads have been scraped in total.");

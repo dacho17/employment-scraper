@@ -6,13 +6,14 @@ async function storeAds(scrapedAds: JobAd[]) {
 
     let queryValues = 'VALUES ';
     scrapedAds.forEach((ad: JobAd) => {  
-        queryValues += `("${ad.createdDate}","${ad.updatedDate}","${ad.source}","${ad.jobLink}","${ad.postingDate}"),`;
+        queryValues += `("${ad.createdDate}","${ad.updatedDate}","${ad.source}","${ad.jobLink}","${ad.postingDate}",
+            "${ad.jobTitle}","${ad.companyName}","${ad.companyLocation}"),`;
     });
     queryValues = queryValues.slice(0, -1);
 
     console.log("about to query the database")
     try {
-        await db.run(`INSERT INTO job_ads (created_at,updated_at,source,job_link,posting_date)
+        await db.run(`INSERT INTO job_ads (created_at,updated_at,source,job_link,posting_date,job_title,company_name,company_location)
             ${queryValues};`
         );
     } catch (exception) {

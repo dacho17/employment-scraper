@@ -18,6 +18,8 @@ export class JobAd {
     nOfApplicants?: string;
     adContent?: string;
     additionalData?: string;
+    jobDescription?: string;
+    jobDetails?: string;
 
     // public createJobAd(createdDate: number, updatedDate: number, source: AdSource, jobLink: string): JobAd {
     //     let newJobAd: JobAd = {

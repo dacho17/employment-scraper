@@ -8,39 +8,39 @@ export default class AdDetailsRouter {
     static openRoutes() {
         AdDetailsRouter.router = express.Router();
 
-        AdDetailsRouter.router.get('/scrape-adzuna-ad-details', (req, res) => {
+        AdDetailsRouter.router.get('/scrape-adzuna-details', (req, res) => {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeAdzunaDetails);
         });
 
-        AdDetailsRouter.router.get('/scrape-arbeit-now-ad-details', (req, res) => {
+        AdDetailsRouter.router.get('/scrape-arbeit-now-details', (req, res) => {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeArbeitNowDetails);
         });
 
-        AdDetailsRouter.router.get('/scrape-career-builder-ad-details', (req, res) => {
+        AdDetailsRouter.router.get('/scrape-career-builder-details', (req, res) => {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeCareerBuilderDetails);
         });
 
-        AdDetailsRouter.router.get('/scrape-career-jet-ad-details', (req, res) => {
+        AdDetailsRouter.router.get('/scrape-career-jet-details', (req, res) => {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeCareerJetDetails);
         });
 
-        AdDetailsRouter.router.get('/scrape-cv-library-ad-details', (req, res) => {
+        AdDetailsRouter.router.get('/scrape-cv-library-details', (req, res) => {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeCvLibraryDetails);
         });
 
-        AdDetailsRouter.router.get('/scrape-euro-jobs-ad-details', (req, res) => {
+        AdDetailsRouter.router.get('/scrape-euro-jobs-details', (req, res) => {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeEuroJobsDetails);
         });
 
-        AdDetailsRouter.router.get('/scrape-euro-job-sites-ad-details', (req, res) => {
+        AdDetailsRouter.router.get('/scrape-euro-job-sites-details', (req, res) => {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeEuroJobSitesDetails);
         });
 
-        AdDetailsRouter.router.get('/scrape-graduateland-ad-details', (req, res) => {
+        AdDetailsRouter.router.get('/scrape-graduateland-details', (req, res) => {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeGraduatelandDetails);
         });
 
-        AdDetailsRouter.router.get('/scrape-indeed-ad-details', (req, res) => {
+        AdDetailsRouter.router.get('/scrape-indeed-details', (req, res) => {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeIndeedDetails);
         });
 

@@ -4,6 +4,7 @@ import { AdScrapeUrlParams } from "../../dataLayer/models/adScrapeUrlParams";
 import { JobAd } from '../../dataLayer/models/jobAd.js';
 import scrapeAdsGeneric from "./common/commonAdScraper";
 
+// jobTitle, companyLocation, companyName, postedDate
 export default async function scrapeAds(reqJobTitle: string, reqNofAds: number): Promise<JobAd[]> {
     const formattedJobTitle = reqJobTitle.trim().replace(Constants.WHITESPACE, Constants.PLUS_SIGN);
     const urlParams: AdScrapeUrlParams = {

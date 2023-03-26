@@ -71,7 +71,8 @@ const Constants = {
     ARBEITNOW_DETAILS_JOB_TITLE_SELECTOR: 'a[itemprop="url"]',
     ARBEITNOW_DETAILS_COMPANY_NAME_SELECTOR: 'a[itemprop="hiringOrganization"]',
     ARBEITNOW_DETAILS_COMPANY_LOCATION_SELECTOR: '.list-none > div > div > div > div > div > div > p',
-    ARBEITNOW_DETAILS_JOB_DETAILS_SELECTOR: 'button',
+    ARBEITNOW_DETAILS_JOB_DETAILS_SELECTOR: '.list-none > div > div > div > div > div:nth-child(2) > div',
+    ARBEITNOW_DETAILS_SALARY_INFORMATION: 'div[title="Salary Information"]',
     ARBEITNOW_DETAILS_POSTED_DATE_SELECTOR: 'time',
     ARBEITNOW_DETAILS_JOB_DESCRIPTION_SELECTOR: 'div[itemprop="description"]',
 
@@ -97,10 +98,13 @@ const Constants = {
     EURO_JOBS_DETAILS_JOB_TITLE_SELECTOR: '.listingInfo > h2',
     EURO_JOBS_DETAILS_JOB_DETAILS_KEY_SELECTOR: '.displayFieldBlock > h3',
     EURO_JOBS_DETAILS_JOB_DETAILS_VALUE_SELECTOR: '.displayField',
+    EURO_JOBS_DETAILS_JOB_DESCRIPTION_SELECTOR: '#listingsResults > div > fieldset > div > div',
 
     EURO_JOB_SITES_DETAILS_ADDITIONAL_JOB_LINK_SELECTOR: '.job-header > div > h2 > a',
     EURO_JOB_SITES_DETAILS_HEADER_SELECTOR: '.job-header > div > h2',
     EURO_JOB_SITES_DETAILS_AD_SELECTOR: '.job-header > div',
+    EURO_JOB_SITES_DETAILS_JOB_DETAILS_SELECTOR: '.job-header > div > p',
+    EURO_JOB_SITES_DETAILS_JOB_DETAILS_KEYS_SELECTOR: '.job-header > div > p > strong',
 
     GRADUATELAND_DETAILS_JOB_TITLE_SELECTOR: '.job-title > h1',
     GRADUATELAND_DETAILS_COMPANY_NAME_SELECTOR: '.job-title > h1 > span > a',
@@ -175,6 +179,7 @@ const Constants = {
     SIMPLY_HIRED_DETAILS_JOB_BENEFITS_SELECTOR: 'div[data-testid="viewJobBodyJobBenefits"]',
     SIMPLY_HIRED_DETAILS_JOB_REQUIREMENTS_SELECTOR: 'div[data-testid="viewJobQualificationsContainer"]',
     SIMPLY_HIRED_DETAILS_JOB_DESCRIPTION_SELECTOR: 'div[data-testid="viewJobBodyJobFullDescriptionContent"]',
+    SIMPLY_HIRED_DETAILS_SALARY_SELECTOR: 'span[data-testid="viewJobBodyJobCompensation"]',
 
     SNAPHUNT_DETAILS_JOB_TITLE_SELECTOR: 'h1[class="JobDetailsPage-jobRole"]',
     SNAPHUNT_DETAILS_WORK_LOCATION_SELECTOR: '.JobDetailsPage-section1 > div:nth-child(2)',
@@ -185,7 +190,8 @@ const Constants = {
 
     TYBA_DETAILS_JOB_TITLE_SELECTOR: '.job-title > h1',
     TYBA_DETAILS_COMPANY_NAME_AND_LINK_SELECTOR: '.at-company > a',
-    TYBA_DETAILS_JOB_DETAILS_SELECTOR: '.content-description',
+    TYBA_DETAILS_JOB_DETAILS_KEYS_SELECTOR: '.content-description > h3',
+    TYBA_DETAILS_JOB_DETAILS_VALUES_SELECTOR: '.content-description > p',
     TYBA_DETAILS_JOB_DESCRIPTION_SELECTOR: '.job-content',
 
     WE_WORK_REMOTELY_DETAIL_JOB_TITLE_SELECTOR: '.listing-header-container > h1',
@@ -195,10 +201,12 @@ const Constants = {
     WE_WORK_REMOTELY_JOB_DESCRIPTION_SELECTOR: '.listing-container',
     WE_WORK_REMOTELY_COMPANY_NAME_AND_LINK_SELECTOR: '.company-card > h2 > a',
     WE_WORK_REMOTELY_COMPANY_LOCATION_SELECTOR: '.company-card > h3',
+    WE_WORK_REMOTELY_COMPANY_WEBSITE_SELECTOR: '.company-card > h3:nth-child(2) > a',
     // Details scrapers constants end here
 
     SIMPLY_HIRED_NAVIGATION_BUTTONS_SELECTOR: 'nav[role="navigation"] > a',
 
+    
     WE_WORK_REMOTELY_JOB_SECTION_SELECTOR: '.jobs-container > .jobs',
     WE_WORK_REMOTELY_VIEW_ALL_JOBS_SELECTOR: 'article > ul > .view-all > a',
   
@@ -210,9 +218,17 @@ const Constants = {
     EURO_JOBS_JOBLINKS_SELECTOR_TWO: '.searchList > li > div > div > div > div > div > h3 > a',
 
     JOB_FLUENT_JOBLINKS_SELECTOR: '.offer-title > a',
+    JOB_FLUENT_PUBLISHED_AGO_SELECTOR: '.published-date',
 
-    JOBS_IN_NETWORK_JOBTITLE_SELECTOR: '.section-jobs-listing > .section-jobs-item > div > div > h2',
+    // JOBS_IN_NETWORK_JOBTITLE_SELECTOR: '.section-jobs-listing > .section-jobs-item > div > div > h2',
     JOBS_IN_NETWORK_JOBID_SELECTOR: '.section-jobs-listing > .section-jobs-item > .card-job',
+
+    JOBS_IN_NETWORK_JOB_TITLE_SELECTOR: '.card-job-body-title',
+    JOBS_IN_NETWORK_COMPANY_NAME_SELECTOR: '.card-job-name',
+    JOBS_IN_NETWORK_COMPANY_LOCATION_SELECTOR: '.card-job-country',
+    JOBS_IN_NETWORK_POSTED_AGO_SELECTOR: '.card-job-date',
+    JOBS_IN_NETWORK_JOB_DETAILS_SELECTOR: '.card-job-footer',
+    JOBS_IN_NETWORK_JOB_DESCRIPTION_SELECTOR: '.card-job-body-description',
 
     ARBEITNOW_JOB_ADS: '#results > li > div > .items-center > div > a',
     ARBEITNOW_SOURCE: 'ARBEITNOW',

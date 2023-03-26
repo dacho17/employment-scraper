@@ -2,6 +2,8 @@ import Constants from "../../constants";
 import { JobDetails } from "../../dataLayer/models/jobDetails";
 import Utils from "../../utils/utils";
 
+// !!!NOTE: not a unifrom scraper! has different website formats
+// jobTitle, postedDate, salary, companyLoc
 export default async function scrapeData(page: any, url: string, jobDetails: JobDetails): Promise<JobDetails> {
     const jobTitleElement = await page.$(Constants.CV_LIBRARY_DETAILS_JOB_TITLE_SELECTOR); // some children are spans > text, some text
     jobDetails.jobTitle = await page.evaluate(el => el.innerText, jobTitleElement);

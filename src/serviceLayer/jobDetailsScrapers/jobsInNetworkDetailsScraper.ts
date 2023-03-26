@@ -1,6 +1,7 @@
 import Constants from "../../constants";
 import { JobDetails } from "../../dataLayer/models/jobDetails"
 
+// !!!NOTE: not a unifrom scraper! has different website formats
 export default async function scrapeData(page: any, url: string, jobDetails: JobDetails): Promise<JobDetails> {
 
     const jobTitleElement = await page.$(Constants.JOBS_IN_NETWORK_DETAILS_JOB_TITLE_SELECTOR);

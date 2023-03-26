@@ -35,7 +35,7 @@ async function scrape(scraperFunc) {
     // Tyba 'https://tyba.com/job/51453087/14/python-developer'
     // WWR 'https://weworkremotely.com/remote-jobs/trustworthy-full-stack-software-engineer-react-python'
 
-    const url = 'https://weworkremotely.com/remote-jobs/trustworthy-full-stack-software-engineer-react-python';
+    const url = 'https://www.eurosciencejobs.com/job_display/236024/Scientific_Editor_The_EMBO_Journal_EMBO_European_Molecular_Biology_Organization_Heidelberg';
     let scrapedJobDetails: JobDetails[] | null = null;
     try {
         const browser = await Browser.run();

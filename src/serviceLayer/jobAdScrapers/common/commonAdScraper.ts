@@ -92,6 +92,14 @@ export default async function scrapeAdsGeneric(urlParams: AdScrapeUrlParams, adS
                 source: adSource,
                 jobLink: jobLink
             }
+
+            if (AdSource.JOB_FLUENT) {
+                const publishedAgoElement = await page.$(Constants.JOB_FLUENT_PUBLISHED_AGO_SELECTOR);
+                const publishedAgo = await page.evaluate(el => el.innerText, publishedAgoElement);
+                const postedDate = Utils.getPostedDate4Graduateland(publishedAgo);
+                newAd.postingDate = Utils.transformToTimestamp(postedDate.toString());
+            }
+
             scrapeTracker.scrapedAds.push(newAd);
         }
 

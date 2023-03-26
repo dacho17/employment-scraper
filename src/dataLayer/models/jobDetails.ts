@@ -16,4 +16,5 @@ export class JobDetails {
     companyLink?: string;
     companyDescription?: string;
     companyDetails?: string;
+    companyWebsite?: string;
 }

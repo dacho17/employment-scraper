@@ -2,6 +2,7 @@ import Constants from "../../constants"
 import { JobDetails } from "../../dataLayer/models/jobDetails"
 import Utils from "../../utils/utils";
 
+// jobTitle, companyName, companyLocation, companyWebiste, companyLink, postedAgo, nOfApplicants, jobDetails, jobDescription
 export default async function scrapeData(page: any, url: string, jobDetails: JobDetails): Promise<JobDetails> {
     const jobTitleElement = await page.$(Constants.WE_WORK_REMOTELY_DETAIL_JOB_TITLE_SELECTOR);
     const jobTitle = await page.evaluate(el => el.innerText, jobTitleElement);
@@ -12,6 +13,10 @@ export default async function scrapeData(page: any, url: string, jobDetails: Job
     const companyLink = Constants.WE_WORK_REMOTELY_URL + await page.evaluate((el, selector) => el.getAttribute(selector), compayNameAndLinkElement, Constants.HREF_SELECTOR);
     jobDetails.companyName = companyName.trim();
     jobDetails.companyLink = companyLink.trim();
+
+    const companyWebsiteElement = await page.$(Constants.WE_WORK_REMOTELY_COMPANY_WEBSITE_SELECTOR);
+    const companyWebsite = await page.evaluate((el, selector) => el.getAttribute(selector), companyWebsiteElement, Constants.HREF_SELECTOR);
+    jobDetails.companyWebsite = companyWebsite.trim();
 
     const companyLocationElement = await page.$(Constants.WE_WORK_REMOTELY_COMPANY_LOCATION_SELECTOR);
     const companyLocation = await page.evaluate(el => el.innerText, companyLocationElement);

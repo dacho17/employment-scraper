@@ -7,6 +7,7 @@ import { AdSource } from "../../dataLayer/enums/adSource.js";
 import { JobAd } from '../../dataLayer/models/jobAd.js';
 import Utils from "../../utils/utils.js";
 
+// postedAgo, jobTitle, companyName, officeLocation, timeEngagement
 export default async function scrapeAds(reqJobTitle: string, reqNofAds: number, workFromHome: boolean): Promise<JobAd[]> {
     const formattedJobTitle = reqJobTitle.trim().replace(Constants.WHITESPACE, Constants.PLUS_SIGN);
 
@@ -23,21 +24,38 @@ export default async function scrapeAds(reqJobTitle: string, reqNofAds: number, 
         }
 
         const $ = cheerio.load(response.data);
+
+        const postedDates = [];
+        $(Constants.CAREER_BUILDER_POSTINGDATE_SELECTOR).contents().toArray().map((elem: any) => {
+            console.log(elem);
+            console.log(elem.data);
+            const postedDate = Utils.getPostedDate4CareerBuilder(elem.data.trim());
+            postedDates.push(Utils.transformToTimestamp(postedDate.toString()));
+        });
+        console.log(postedDates);
+        console.log(postedDates.length)
+
+        const jobLinks = [];
         const jobAdElements = $(Constants.CAREER_BUILDER_JOB_ADS).toArray().map((elem: cheerio.Element) => {
             if (elem?.attributes !== undefined) {
                 const attr = elem.attributes;
                 const jobLink = Constants.CAREER_BUILDER_URL + attr.find(attr => attr[Constants.CAREER_BUILDER_JOBLINK_SELECTOR[0]] == Constants.CAREER_BUILDER_JOBLINK_SELECTOR[1])[Constants.VALUE_SELECTOR].trim();
-
-                const currentTimestap = Utils.transformToTimestamp((new Date(Date.now())).toString());
-                const newAd: JobAd = {
-                    createdDate: currentTimestap,
-                    updatedDate: currentTimestap,
-                    source: AdSource.CAREER_BUILDER,
-                    jobLink: jobLink
-                };
-                scrapeTracker.scrapedAds.push(newAd);
+                jobLinks.push(jobLink);
             }
         });
+        console.log(jobLinks.length);
+        for (let i = 0; i < jobLinks.length; i++) {
+            const currentTimestap = Utils.transformToTimestamp((new Date(Date.now())).toString());
+            const newAd: JobAd = {
+                createdDate: currentTimestap,
+                updatedDate: currentTimestap,
+                source: AdSource.CAREER_BUILDER,
+                jobLink: jobLinks[i],
+                postingDate: postedDates[i]
+            };
+
+            scrapeTracker.scrapedAds.push(newAd);
+        }
 
         if (!jobAdElements || jobAdElements.length == 0) break; 
         scrapeTracker.currentPage += 1;

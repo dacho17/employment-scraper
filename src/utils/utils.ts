@@ -1,5 +1,4 @@
-import datefns from 'date-fns';
-import { addHours, addDays, addWeeks, addMonths} from 'date-fns';
+import { addMinutes, addHours, addDays, addWeeks, addMonths} from 'date-fns';
 import Constants from '../constants.js';
 import constants from '../constants.js';
 import { AdPostedAgoTimeframe } from '../dataLayer/enums/adPostedAgoTimeframe.js';
@@ -13,21 +12,6 @@ export default class Utils {
         return jobProps.reduce((total, current) => total.trim() + ' ' + current.trim());
     }
 
-    getPostedDate4CareerBuilder(textContainingPostedAgo: string): Date {
-        const [postedAgoText, timeframe, _] = textContainingPostedAgo.trim().split(constants.WHITESPACE);
-        const postedAgo = parseInt(postedAgoText);
-        if (textContainingPostedAgo.trim().toLowerCase() == AdPostedAgoTimeframe.TODAY) {
-            return new Date(Date.now());
-        } else if (!isNaN(postedAgo)) {
-            const timeframeCheck = timeframe.trim().toLowerCase();
-            if (timeframeCheck.includes(AdPostedAgoTimeframe.DAY)) return datefns.addDays(Date.now(), -postedAgo);
-            else if (timeframeCheck.includes(AdPostedAgoTimeframe.MONTH)) return datefns.addMonths(Date.now(), -postedAgo);
-            else return new Date(null);
-        }
-    
-        return new Date(null);
-    }
-
     static getNumberOfApplicantsWWR(textContainingNofApplicants: string): string {
         const [numberCandidate, numberCandidateTwo, _] = textContainingNofApplicants.trim().split(constants.WHITESPACE);
 
@@ -38,6 +22,21 @@ export default class Utils {
             return nOfApplicantsCandidateTwo.toString();
 
         return nOfApplicantsCandidateTwo.toString();
+    }
+
+    static getPostedDate4CareerBuilder(textContainingPostedAgo: string): Date {
+        const [postedAgoText, timeframe, _] = textContainingPostedAgo.trim().split(constants.WHITESPACE);
+        const postedAgo = parseInt(postedAgoText);
+        if (textContainingPostedAgo.trim().toLowerCase() == AdPostedAgoTimeframe.TODAY) {
+            return new Date(Date.now());
+        } else if (!isNaN(postedAgo)) {
+            const timeframeCheck = timeframe.trim().toLowerCase();
+            if (timeframeCheck.includes(AdPostedAgoTimeframe.DAY)) return addDays(Date.now(), -postedAgo);
+            else if (timeframeCheck.includes(AdPostedAgoTimeframe.MONTH)) return addMonths(Date.now(), -postedAgo);
+            else return new Date(null);
+        }
+    
+        return new Date(null);
     }
 
     static getPostedDate4SimplyHired(textContainingPostedAgo: string): Date {
@@ -178,6 +177,27 @@ export default class Utils {
             return addDays(Date.now(), -parseInt(firstPart))
         } else if (secondPart.includes(AdPostedAgoTimeframe.WEEK)) {
             return addWeeks(Date.now(), -parseInt(firstPart));
+        } else {
+            return new Date(null);
+        }
+    }
+
+    static getPostedDate4JobsInNetwork(textContainingPostedAgo: string): Date {
+        const [postedAgoText, timeframe, _] = textContainingPostedAgo.trim().split(constants.WHITESPACE)
+        const postedAgo = parseInt(postedAgoText);
+    
+        if (isNaN(postedAgo)) return new Date(null);
+    
+        if (timeframe.includes(AdPostedAgoTimeframe.MINUTE)) {
+            return addMinutes(Date.now(), -postedAgo);
+        } else if (timeframe.includes(AdPostedAgoTimeframe.HOUR)) {
+            return addHours(Date.now(), -postedAgo);
+        } else if (timeframe.includes(AdPostedAgoTimeframe.DAY)) {
+            return addDays(Date.now(), -postedAgo);
+        } else if (timeframe.includes(AdPostedAgoTimeframe.WEEK)) {
+            return addWeeks(Date.now(), -postedAgo);
+        } else if (timeframe.includes(AdPostedAgoTimeframe.MONTH)) {
+            return addMonths(Date.now(), -postedAgo);
         } else {
             return new Date(null);
         }

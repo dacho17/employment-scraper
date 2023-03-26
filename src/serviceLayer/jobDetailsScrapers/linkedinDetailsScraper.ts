@@ -2,6 +2,7 @@ import Constants from "../../constants"
 import { JobDetails } from "../../dataLayer/models/jobDetails"
 import Utils from "../../utils/utils";
 
+// jotTitle, companyName, companyLink, companyLocation, postedDate, nOfApplicants, jobDetails, jobDescription
 export default async function scrapeData(page: any, url: string, jobDetails: JobDetails): Promise<JobDetails> {
     const jobTitleElement = await page.$(Constants.LN_DETAILS_JOBTITLE_SELECTOR);
     const jobTitle = await page.evaluate(el => el.innerText, jobTitleElement);

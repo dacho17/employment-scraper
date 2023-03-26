@@ -2,6 +2,7 @@ import Constants from "../../constants"
 import { JobDetails } from "../../dataLayer/models/jobDetails"
 import Utils from "../../utils/utils";
 
+// jobTitle, salary, workLocation, postedDate, companyName, companyLink, requiredSkills, companyDescripiton, jobDetails, jobDescription
 export default async function scrapeData(page: any, url: string, jobDetails: JobDetails): Promise<JobDetails> {
     const showMoreButtonElement = await page.$(Constants.NO_FLUFF_DETAILS_SHOW_MORE_SELECTOR);
     await showMoreButtonElement.evaluate(button => button.click());

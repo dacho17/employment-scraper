@@ -38,6 +38,7 @@ async function gatherJobAds(scrapedAds: JobAd[], adSource: AdSource, baseUrl: st
     return scrapedAds;
 }
 
+// jobTitle, companyName, companyLocation, shortDescription, postedAgo, applicationDeadline
 export default async function scrapeAds(reqJobTitle: string, fieldOfWork: string): Promise<JobAd[]> {
     
     const formattedJobTitle = reqJobTitle.replace(Constants.WHITESPACE, Constants.UNDERSCORE);

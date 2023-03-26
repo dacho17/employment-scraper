@@ -3,8 +3,6 @@ import { JobDetails } from "../../dataLayer/models/jobDetails";
 import Utils from "../../utils/utils";
 
 async function scrapeSubtitleSection(subtitleSectionElements: string[], adDetails: JobDetails): Promise<void> {
-    // Properties in this section: companyLocation, salary-maybe, timeEngagement divided into two parts
-    
     adDetails.companyLocation = subtitleSectionElements[0];
     if (subtitleSectionElements.length === 3) {
         adDetails.timeEngagement = subtitleSectionElements[1] + Constants.JOB_DESCRIPTION_COMPOSITION_DELIMITER +  subtitleSectionElements[2];
@@ -16,6 +14,7 @@ async function scrapeSubtitleSection(subtitleSectionElements: string[], adDetail
     }
 } 
 
+// jobTitle, companyName, companyLocation, timeEngagement, salary, postedDate, jobDescription
 export default async function scrapeData(page: any, url: string, jobDetails: JobDetails): Promise<JobDetails> {
     const jobTitleElement = await page.$(Constants.CAREER_JET_DETAILS_JOB_TITLE_SELECTOR);
     jobDetails.jobTitle = await page.evaluate(el => el.innerText, jobTitleElement);
@@ -31,9 +30,7 @@ export default async function scrapeData(page: any, url: string, jobDetails: Job
 
     const postedAgoElement = await page.$(Constants.CAREER_JET_DETAILS_POSTED_AGO_SELECTOR);
     const postedAgo = await page.evaluate(el => el.innerText, postedAgoElement);
-    console.log(postedAgo);
     const postedDate = Utils.getPostedDate4CareerJet(postedAgo);
-    console.log(postedDate);
     jobDetails.postedDate = Utils.transformToTimestamp(postedDate.toString());
 
     const jobDescriptionElement = await page.$(Constants.CAREER_JET_DETAILS_JOB_DESCRIPTION_SELECTOR);

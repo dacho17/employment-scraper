@@ -1,6 +1,7 @@
 import Constants from "../../constants"
 import { JobDetails } from "../../dataLayer/models/jobDetails"
 
+// jobTitle, companyNam, companyLink, jobDetails(location, hireDuration, skillsRequired)
 export default async function scrapeData(page: any, url: string, jobDetails: JobDetails): Promise<JobDetails> {
     const jobTitleElement = await page.$(Constants.TYBA_DETAILS_JOB_TITLE_SELECTOR);
     const jobTitle = await page.evaluate(el => el.innerText, jobTitleElement);
@@ -12,9 +13,15 @@ export default async function scrapeData(page: any, url: string, jobDetails: Job
     jobDetails.companyName = companyName.trim();
     jobDetails.companyLink = companyLink.trim();
 
-    const jobDetailsElement = await page.$(Constants.TYBA_DETAILS_JOB_DETAILS_SELECTOR);
-    const details = await page.evaluate(el => el.textContent, jobDetailsElement);
-    jobDetails.jobDetails = details.trim();
+    let details = '';
+    const jobDetailsKeyElements = await page.$$(Constants.TYBA_DETAILS_JOB_DETAILS_KEYS_SELECTOR);
+    const jobDetailsValueElements = await page.$$(Constants.TYBA_DETAILS_JOB_DETAILS_VALUES_SELECTOR);
+    for (let i = 0; i < jobDetailsKeyElements.length; i++) {
+        const key = await page.evaluate(el => el.textContent, jobDetailsKeyElements[i]);
+        const value = await page.evaluate(el => el.textContent, jobDetailsValueElements[i]);
+        details += key.trim() + Constants.EQUALS + value.trim() + Constants.JOB_DESCRIPTION_COMPOSITION_DELIMITER; 
+    }
+    jobDetails.jobDetails = details;
 
     const jobDescriptionElement = await page.$(Constants.TYBA_DETAILS_JOB_DESCRIPTION_SELECTOR);
     const jobDescription = await page.evaluate(el => el.textContent, jobDescriptionElement);

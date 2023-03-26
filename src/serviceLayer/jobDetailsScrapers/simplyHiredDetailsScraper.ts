@@ -2,6 +2,7 @@ import Constants from "../../constants"
 import { JobDetails } from "../../dataLayer/models/jobDetails"
 import Utils from "../../utils/utils";
 
+// jobTitle, companyName, workLocation, salary, timeEngagement, postedAgo, jobRequirements, jobDescription
 export default async function scrapeData(page: any, url: string, jobDetails: JobDetails): Promise<JobDetails> {
     const jobTitleElement = await page.$(Constants.SIMPLY_HIRED_DETAILS_JOB_TITLE_SELECTOR);
     const jobTitle = await page.evaluate(el => el.innerText, jobTitleElement);
@@ -18,6 +19,12 @@ export default async function scrapeData(page: any, url: string, jobDetails: Job
     const timeEngagementElement = await page.$(Constants.SIMPLY_HIRED_DETAILS_TIME_ENGAGEMENT_SELECTOR);
     const timeEngagement = await page.evaluate(el => el.textContent, timeEngagementElement);
     jobDetails.timeEngagement = timeEngagement.trim();
+
+    const salaryElement = await page.$(Constants.SIMPLY_HIRED_DETAILS_SALARY_SELECTOR);
+    if (salaryElement) {
+        const salary = await page.evaluate(el => el.textContent, salaryElement);
+        jobDetails.salary = salary.trim();
+    }
 
     const postedAgoElement = await page.$(Constants.SIMPLY_HIRED_DETAILS_POSTED_AGO_SELECTOR);
     const postedAgo = await page.evaluate(el => el.textContent, postedAgoElement);

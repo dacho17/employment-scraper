@@ -2,7 +2,6 @@ import Constants from "../../constants";
 import { JobDetails } from "../../dataLayer/models/jobDetails";
 
 async function scrapeSubtitleSection(page: any, jobDetails: JobDetails) {
-    // Properties on the website: companyName - maybe, officeLoc, timeEngag (+ rem)
     const jobSubtitleElement = await page.$$(Constants.CAREER_BUILDER_DETAILS_JOB_SUBTITLE_SELECTOR);
     let firstSubtitleProperty = await page.evaluate(elem => elem.innerText, jobSubtitleElement[0]);
     firstSubtitleProperty = firstSubtitleProperty.trim();
@@ -21,6 +20,7 @@ async function scrapeSubtitleSection(page: any, jobDetails: JobDetails) {
     }
 } 
 
+// postedAgo, jobTitle, companyName, officeLocation, timeEngagement
 export default async function scrapeData(page: any, url: string, jobDetails: JobDetails): Promise<JobDetails> {
     const jobTitleElement = await page.$(Constants.CAREER_BUILDER_DETAILS_JOB_TITLE_SELECTOR);
     jobDetails.jobTitle = await page.evaluate(el => el.innerText, jobTitleElement);

@@ -1,7 +1,7 @@
 import Constants from "../../constants"
 import { JobDetails } from "../../dataLayer/models/jobDetails"
-import Utils from "../../utils/utils";
 
+// jobTite, companyName, companyLink, companyLocation, companyDescription, requiredSkills, jobDetails, jobDescription
 export default async function scrapeData(page: any, url: string, jobDetails: JobDetails): Promise<JobDetails> {
     const registerForm = await page.$(Constants.QREER_DETAILS_REGISTER_FORM_BUTTON_SELECTOR);    // check if register form has appeared
     if (registerForm) {

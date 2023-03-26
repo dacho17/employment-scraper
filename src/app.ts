@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import AppRouter from './router.js';
+import AppRouter from './routers/adRouter.js';
 import AdDetailsRouter from './routers/adDetailsRouter.js';
 
 const app = express();
