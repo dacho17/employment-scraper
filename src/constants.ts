@@ -182,6 +182,11 @@ const Constants = {
     SNAPHUNT_DETAILS_JOB_DESCRIPTION_SELECTOR: '.JobDetailsPageWrapper > div:nth-child(4) > div > div > div > div:nth-child(3)',
     SNAPHUNT_DETAILS_JOB_REQUIREMENTS_SELECTOR: '.JobDetailsPageWrapper > div:nth-child(4) > div > div > div > div:nth-child(4)',
 
+    TYBA_DETAILS_JOB_TITLE_SELECTOR: '.job-title > h1',
+    TYBA_DETAILS_COMPANY_NAME_AND_LINK_SELECTOR: '.at-company > a',
+    TYBA_DETAILS_JOB_DETAILS_SELECTOR: '.content-description',
+    TYBA_DETAILS_JOB_DESCRIPTION_SELECTOR: '.job-content',
+
     SIMPLY_HIRED_NAVIGATION_BUTTONS_SELECTOR: 'nav[role="navigation"] > a',
 
     WE_WORK_REMOTELY_JOB_SECTION_SELECTOR: '.jobs-container > .jobs',

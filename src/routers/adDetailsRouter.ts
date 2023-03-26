@@ -72,6 +72,10 @@ export default class AdDetailsRouter {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeSnaphuntDetails);
         });
 
+        AdDetailsRouter.router.get('/scrape-tyba-details', (req, res) => {
+            AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeTybaDetails);
+        });
+
         return AdDetailsRouter.router;
     }
 

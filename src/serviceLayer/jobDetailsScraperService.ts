@@ -32,8 +32,9 @@ async function scrape(scraperFunc) {
     // Qreer 'https://www.qreer.com/jobs/view/13785/sr-product-engineer#keyword%3Apython+developer%2Fpage%3A2'
     // SimplyHired 'https://www.simplyhired.com/job/0kZxAj4Qs57dsIXfJaTCknyUN5hw_zeL0eLCoEwyP4uZtt8b0DqKfA'
     // Snaphunt 'https://snaphunt.com/jobs/HMQCNANIJZ'
+    // Tyba 'https://tyba.com/job/51453087/14/python-developer'
 
-    const url = 'https://snaphunt.com/jobs/HMQCNANIJZ';
+    const url = 'https://tyba.com/job/51453087/14/python-developer';
     let scrapedJobDetails: JobDetails[] | null = null;
     try {
         const browser = await Browser.run();
