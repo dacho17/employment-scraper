@@ -8,3 +8,5 @@ export { default as scrapeEuroJobSitesDetails } from './euroJobSitesDetailsScrap
 export { default as scrapeGraduatelandDetails } from './graduatelandDetailsScraper.js';
 export { default as scrapeIndeedDetails } from './indeedDetailsScraper.js';
 export { default as scrapeJobFluentDetails } from './jobFluentDetailsScraper.js';
+export { default as scrapeJobsInNetworkDetails } from './jobsInNetworkDetailsScraper.js';
+export { default as scrapeLinkedinDetails } from './linkedinDetailsScraper.js';

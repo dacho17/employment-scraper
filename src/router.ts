@@ -10,15 +10,6 @@ export default class AppRouter {
     static openRoutes() {
         AppRouter.router = express.Router();
         
-        // TODO: to be implemented
-        // AppRouter.router.get('/scrape-linkedin-details', (req, res) => {
-        //     scraperService.scrape([], scrapers.likne).then(responseObj => {
-        //         res.status(responseObj.statusCode).json(responseObj.message);
-        //     });
-        // })
-
-
-
          // TODO: in progress
         // AppRouter.router.post('/scrape-eures-ads', (req, res) => {
         //     scraperService.doAscrape([req.body.jobTitle, req.body.nOfAds], scrapers.eu).then(responseObj => {

@@ -16,14 +16,6 @@ const Constants = {
     INDEED_URL: 'https://www.indeed.com',
     GRADUATELAND_URL: 'https://graduateland.com',
 
-    LN_DETAIL_LOCATION_SELECTOR: '.sub-nav-cta__meta-text',
-    LN_DETAIL_JOBTITLE_SELECTOR: '.sub-nav-cta__header',
-    LN_DETAIL_COMPANY_SELECTOR: '.sub-nav-cta__optional-url',
-    LN_DETAIL_POSTINGDATE_SELECTOR: '.posted-time-ago__text',
-    LN_DETAIL_NOFAPPLICANTS_SELECTOR: '.num-applicants__caption',
-    LN_DETAIL_ADCONTENT_SELECTOR: '.show-more-less-html__markup',
-    LN_DETAIL_JOBPROPS_SELECTOR: '.description__job-criteria-text--criteria',
-
     LN_AD_JOB_LINK_PROPS: ['name', 'href'],
     LN_AD_JOB_TITLE_SELECTOR: '.base-search-card__title',
     LN_AD_COMPANY_NAME_SELECTOR: '.base-search-card__subtitle',
@@ -78,7 +70,7 @@ const Constants = {
     ARBEITNOW_DETAILS_JOB_TITLE_SELECTOR: 'a[itemprop="url"]',
     ARBEITNOW_DETAILS_COMPANY_NAME_SELECTOR: 'a[itemprop="hiringOrganization"]',
     ARBEITNOW_DETAILS_COMPANY_LOCATION_SELECTOR: '.list-none > div > div > div > div > div > div > p',
-    ARBEITNOW_DETAILS_JOB_DETAILS_SELECTOR: 'button', // .list-none > 
+    ARBEITNOW_DETAILS_JOB_DETAILS_SELECTOR: 'button',
     ARBEITNOW_DETAILS_POSTED_DATE_SELECTOR: 'time',
     ARBEITNOW_DETAILS_JOB_DESCRIPTION_SELECTOR: 'div[itemprop="description"]',
 
@@ -134,8 +126,21 @@ const Constants = {
     JOB_FLUENT_DETAILS_REMOTE_SELECTOR: 'span[data-original-title="Remote"]',
     JOB_FLUENT_DETAILS_TIME_ENGAGEMENT_SELECTOR: 'b[itemprop="employmentType"]',
     JOB_FLUENT_DETAILS_INTERNSHIP_SELECTOR: 'span[data-original-title="No internship"]',
-    JOB_FLUENT_DETAILS_REQUIRED_SKILLS: 'meta[itemprop="skills"]', // get data from content attribute
+    JOB_FLUENT_DETAILS_REQUIRED_SKILLS: 'meta[itemprop="skills"]',
     JOB_FLUENT_DETAILS_JOB_DESCRIPTION: 'div[itemprop="description"]',
+
+    JOBS_IN_NETWORK_DETAILS_JOB_TITLE_SELECTOR: '.pub-job-title',
+    JOBS_IN_NETWORK_DETAILS_JOB_DETAILS_SELECTOR: '.pub-job-details-list',
+    JOBS_IN_NETWORK_DETAILS_JOB_DESCRIPTION_SELECTOR: '.pub-job-content',
+
+    LN_DETAILS_JOBTITLE_SELECTOR: '.topcard__title',
+    LN_DETAILS_COMPANY_NAME_AND_LINK_SELECTOR: '.topcard__org-name-link',
+    LN_DETAILS_COMPANY_LOCATION_SELECTOR: '.topcard__flavor-row > .topcard__flavor:nth-child(2)',
+    LN_DETAILS_POSTED_AGO_SELECTOR: '.posted-time-ago__text',
+    LN_DETAILS_NUMBER_OF_APPLICANTS_SELECTOR: '.num-applicants__caption',
+    LN_DETAILS_JOB_DETAILS_SELECTOR: '.description__job-criteria-list',
+    LN_DETAILS_SHOW_MORE_BUTTON_SELECTOR: '.show-more-less-html__button--more', // do I need this?
+    LN_DETAILS_JOB_DESCRIPTION: '.description__text',
 
     SIMPLY_HIRED_NAVIGATION_BUTTONS_SELECTOR: 'nav[role="navigation"] > a',
 
@@ -167,7 +172,6 @@ const Constants = {
     SIMPLY_HIRED_DAY_MARK: 'd',
 
     NO_APPLICANTS: 'No applicants yet',
-    APPLICANT_DATA_UNKNOWN: 'Data on applicants is unknown',
     UNDISCLOSED_SALARY: 'Undisclosed',
     UNDEFINED_FIELD_OF_WORK: 'The field of work is undefined',
 

@@ -1,5 +1,6 @@
 export class JobDetails {
     jobTitle: string;
+    nOfApplicants?: string;
     workLocation?: string;
     jobDetails?: string;
     timeEngagement: string;

@@ -39,20 +39,20 @@ export default class Utils {
         return new Date(null);
     }
 
-    getPostedDate4LinkedIn(textContainingPostedAgo: string): Date {
+    static getPostedDate4LinkedIn(textContainingPostedAgo: string): Date {
         const [postedAgoText, timeframe, _] = textContainingPostedAgo.trim().split(constants.WHITESPACE)
         const postedAgo = parseInt(postedAgoText);
     
         if (isNaN(postedAgo)) return new Date(null);
     
         if (timeframe.includes(AdPostedAgoTimeframe.DAY)) {
-            return datefns.addDays(Date.now(), -postedAgo);
+            return addDays(Date.now(), -postedAgo);
         }
         else if (timeframe.includes(AdPostedAgoTimeframe.WEEK)) {
-            return datefns.addWeeks(Date.now(), -postedAgo);
+            return addWeeks(Date.now(), -postedAgo);
         }
         else if (timeframe.includes(AdPostedAgoTimeframe.MONTH)) {
-            return datefns.addMonths(Date.now(), -postedAgo);
+            return addMonths(Date.now(), -postedAgo);
         }
         else {
             return new Date(null);
@@ -133,27 +133,6 @@ export default class Utils {
             return addWeeks(Date.now(), -parseInt(firstPart));
         } else {
             return new Date(null);
-        }
-    }
-
-    getNumberOfApplicants(textContainingNumberOfApplicants) {
-        let isThereANumber = false
-        textContainingNumberOfApplicants.trim().split(constants.WHITESPACE).forEach(element => {
-            if (!isNaN(element.trim())) isThereANumber = true;
-        });
-    
-        const [firstPart, secondPart, _] = textContainingNumberOfApplicants.trim().split(constants.WHITESPACE);
-        if (isThereANumber == false) {
-            return constants.NO_APPLICANTS;
-        }
-        else if (!isNaN(firstPart)) {
-            return firstPart.trim();
-        }
-        else if (isNaN(firstPart) && !isNaN(secondPart)) {
-            return secondPart.trim() + constants.PLUS_SIGN;
-        }
-        else {
-            return constants.APPLICANT_DATA_UNKNOWN;
         }
     }
 

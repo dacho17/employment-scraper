@@ -26,8 +26,10 @@ async function scrape(scraperFunc) {
     // Graduateland 'https://graduateland.com/job/51759939/13'
     // Indeed 'https://www.indeed.com/viewjob?jk=e7db9718b72e5d7e&tk=1gsdgpri1kp3n801&from=serp&vjs=3'
     // JobFluent 'https://www.jobfluent.com/jobs/senior-php-developer-drupal-madrid-8d3681?result=1'
+    // JobsInNetwork 'https://www.jobsinnetwork.com/jobs/software-developer/fb4437db718c77795475b70e5dfade26?subid=jobsinnetwork'
+    // LinkedIn 'https://www.linkedin.com/jobs/view/elementary-teacher-at-dinwiddie-county-public-schools-3543460045?refId=WqvtSv3CS57Fw2kqcTFETg%3D%3D&trackingId=LvLGGYqtIlO6hP9TCCqGrQ%3D%3D&trk=public_jobs_topcard-title'
 
-    const url = 'https://www.jobfluent.com/jobs/senior-php-developer-drupal-madrid-8d3681?result=1';
+    const url = 'https://www.linkedin.com/jobs/view/elementary-teacher-at-dinwiddie-county-public-schools-3543460045?refId=WqvtSv3CS57Fw2kqcTFETg%3D%3D&trackingId=LvLGGYqtIlO6hP9TCCqGrQ%3D%3D&trk=public_jobs_topcard-title';
     let scrapedJobDetails: JobDetails[] | null = null;
     try {
         const browser = await Browser.run();
