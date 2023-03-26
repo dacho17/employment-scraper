@@ -56,6 +56,10 @@ export default class AdDetailsRouter {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeLinkedinDetails);
         });
 
+        AdDetailsRouter.router.get('/scrape-no-fluff-details', (req, res) => {
+            AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeNoFluffDetails);
+        });
+
         return AdDetailsRouter.router;
     }
 

@@ -39,6 +39,30 @@ export default class Utils {
         return new Date(null);
     }
 
+    static getPostedDate4NoFluff(textContainingPostedAgo: string): Date {
+        const splitEntry = textContainingPostedAgo.trim().split(constants.WHITESPACE)
+
+        if (splitEntry.length < 6) return new Date(null);
+        const postedAgoText = splitEntry[4];
+        const timeframe = splitEntry[5];
+        const postedAgo = parseInt(postedAgoText);
+
+        if (isNaN(postedAgo)) return new Date(null);
+    
+        if (timeframe.includes(AdPostedAgoTimeframe.DAY)) {
+            return addDays(Date.now(), -postedAgo);
+        }
+        else if (timeframe.includes(AdPostedAgoTimeframe.WEEK)) {
+            return addWeeks(Date.now(), -postedAgo);
+        }
+        else if (timeframe.includes(AdPostedAgoTimeframe.MONTH)) {
+            return addMonths(Date.now(), -postedAgo);
+        }
+        else {
+            return new Date(null);
+        }
+    }
+
     static getPostedDate4LinkedIn(textContainingPostedAgo: string): Date {
         const [postedAgoText, timeframe, _] = textContainingPostedAgo.trim().split(constants.WHITESPACE)
         const postedAgo = parseInt(postedAgoText);

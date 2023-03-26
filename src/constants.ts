@@ -139,8 +139,22 @@ const Constants = {
     LN_DETAILS_POSTED_AGO_SELECTOR: '.posted-time-ago__text',
     LN_DETAILS_NUMBER_OF_APPLICANTS_SELECTOR: '.num-applicants__caption',
     LN_DETAILS_JOB_DETAILS_SELECTOR: '.description__job-criteria-list',
-    LN_DETAILS_SHOW_MORE_BUTTON_SELECTOR: '.show-more-less-html__button--more', // do I need this?
     LN_DETAILS_JOB_DESCRIPTION: '.description__text',
+
+    NO_FLUFF_DETAILS_JOB_TITLE_SELECTOR: '.posting-details-description > h1',
+    NO_FLUFF_DETAILS_SALARY_SELECTOR: '.salary > h4',
+    NO_FLUFF_DETAILS_LOCATION_SELECTOR: '.locations',
+    NO_FLUFF_DETAILS_POSTED_AGO_SELECTOR: '.posting-time-row',
+    NO_FLUFF_DETAILS_COMPANY_NAME_AND_LINK_SELECTOR: '#postingCompanyUrl',
+    NO_FLUFF_DETAILS_REQUIRED_SKILLS_SELECTOR: '#posting-requirements',
+    NO_FLUFF_DETAILS_JOB_REQUIREMENTS_SELECTOR: 'section[data-cy-section="JobOffer_Requirements"]',
+    NO_FLUFF_DETAILS_JOB_DESCRIPTION_SELECTOR: '#posting-description',
+    NO_FLUFF_DETAILS_JOB_RESPONSIBILITIES_SELECTOR: '#posting-tasks',
+    NO_FLUFF_DETAILS_JOB_DETAILS_SELECTOR: '#posting-specs',
+    NO_FLUFF_DETAILS_EQUIPMENT_SUPPLIED_SELECTOR: '#posting-equipment',
+    NO_FLUFF_DETAILS_JOB_BENEFITS_SELECTOR: '#posting-benefits',
+    NO_FLUFF_DETAILS_COMPANY_INFO_SELECTOR: '#posting-company > div',
+    NO_FLUFF_DETAILS_SHOW_MORE_SELECTOR: 'span[data-cy="text-fold"]',
 
     SIMPLY_HIRED_NAVIGATION_BUTTONS_SELECTOR: 'nav[role="navigation"] > a',
 
