@@ -166,6 +166,15 @@ const Constants = {
     QREER_DETAILS_JOB_DETAILS_SELECTOR: '.job-info-block',
     QREER_DETAILS_REGISTER_FORM_BUTTON: '#qreerRegisterSuggClose',
 
+    SIMPLY_HIRED_DETAILS_JOB_TITLE_SELECTOR: 'h2[data-testid="viewJobTitle"]',
+    SIMPLY_HIRED_DETAILS_COMPANY_NAME_SELECTOR: 'span[data-testid="viewJobCompanyName"] > span > span',
+    SIMPLY_HIRED_DETAILS_COMPANY_LOCATION_SELECTOR: 'span[data-testid="viewJobCompanyLocation"]',
+    SIMPLY_HIRED_DETAILS_TIME_ENGAGEMENT_SELECTOR:'span[data-testid="viewJobBodyJobDetailsJobType"]',
+    SIMPLY_HIRED_DETAILS_POSTED_AGO_SELECTOR: 'span[data-testid="viewJobBodyJobPostingTimestamp"]',
+    SIMPLY_HIRED_DETAILS_JOB_BENEFITS_SELECTOR: 'div[data-testid="viewJobBodyJobBenefits"]',
+    SIMPLY_HIRED_DETAILS_JOB_REQUIREMENTS_SELECTOR: 'div[data-testid="viewJobQualificationsContainer"]',
+    SIMPLY_HIRED_DETAILS_JOB_DESCRIPTION_SELECTOR: 'div[data-testid="viewJobBodyJobFullDescriptionContent"]',
+
     SIMPLY_HIRED_NAVIGATION_BUTTONS_SELECTOR: 'nav[role="navigation"] > a',
 
     WE_WORK_REMOTELY_JOB_SECTION_SELECTOR: '.jobs-container > .jobs',

@@ -12,3 +12,4 @@ export { default as scrapeJobsInNetworkDetails } from './jobsInNetworkDetailsScr
 export { default as scrapeLinkedinDetails } from './linkedinDetailsScraper.js';
 export { default as scrapeNoFluffDetails } from './noFluffJobsDetailsScraper.js';
 export { default as scrapeQreerDetails } from './qreerDetailsScraper.js';
+export { default as scrapeSimplyHiredDetails } from './simplyHiredDetailsScraper.js';

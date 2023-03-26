@@ -12,18 +12,6 @@ export default class Utils {
         return jobProps.reduce((total, current) => total.trim() + ' ' + current.trim());
     }
 
-    getPostedDate4SimplyHired(textContainingPostedAgo: string): Date {
-        if (!textContainingPostedAgo || textContainingPostedAgo == '') return new Date(null);
-        if (textContainingPostedAgo.trim().toLowerCase() == AdPostedAgoTimeframe.TODAY) {
-            return new Date(Date.now());
-        } else {
-            const numberOfDaysText = textContainingPostedAgo.substring(0, textContainingPostedAgo.indexOf(constants.SIMPLY_HIRED_DAY_MARK));
-            const postedAgo = parseInt(numberOfDaysText);
-    
-            return datefns.addDays(Date.now(), -postedAgo);
-        }
-    }
-
     getPostedDate4CareerBuilder(textContainingPostedAgo: string): Date {
         const [postedAgoText, timeframe, _] = textContainingPostedAgo.trim().split(constants.WHITESPACE);
         const postedAgo = parseInt(postedAgoText);
@@ -37,6 +25,28 @@ export default class Utils {
         }
     
         return new Date(null);
+    }
+
+    static getPostedDate4SimplyHired(textContainingPostedAgo: string): Date {
+        const [postedAgoText, timeframe, _] = textContainingPostedAgo.trim().split(constants.WHITESPACE)
+        const postedAgo = parseInt(postedAgoText);
+    
+        if (isNaN(postedAgo)) return new Date(null);
+    
+        if (timeframe.includes(AdPostedAgoTimeframe.HOUR)) {
+            return addHours(Date.now(), -postedAgo);
+        } else if (timeframe.includes(AdPostedAgoTimeframe.DAY)) {
+            return addDays(Date.now(), -postedAgo);
+        }
+        else if (timeframe.includes(AdPostedAgoTimeframe.WEEK)) {
+            return addWeeks(Date.now(), -postedAgo);
+        }
+        else if (timeframe.includes(AdPostedAgoTimeframe.MONTH)) {
+            return addMonths(Date.now(), -postedAgo);
+        }
+        else {
+            return new Date(null);
+        }
     }
 
     static getPostedDate4NoFluff(textContainingPostedAgo: string): Date {

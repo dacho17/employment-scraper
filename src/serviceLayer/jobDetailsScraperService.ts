@@ -30,8 +30,9 @@ async function scrape(scraperFunc) {
     // LinkedIn 'https://www.linkedin.com/jobs/view/elementary-teacher-at-dinwiddie-county-public-schools-3543460045?refId=WqvtSv3CS57Fw2kqcTFETg%3D%3D&trackingId=LvLGGYqtIlO6hP9TCCqGrQ%3D%3D&trk=public_jobs_topcard-title'
     // NoFluff 'https://nofluffjobs.com/job/software-configuration-engineer-fis-technology-services-poland-warsaw-1'
     // Qreer 'https://www.qreer.com/jobs/view/13785/sr-product-engineer#keyword%3Apython+developer%2Fpage%3A2'
+    // SimplyHired 'https://www.simplyhired.com/job/0kZxAj4Qs57dsIXfJaTCknyUN5hw_zeL0eLCoEwyP4uZtt8b0DqKfA'
 
-    const url = 'https://www.qreer.com/jobs/view/13785/sr-product-engineer#keyword%3Apython+developer%2Fpage%3A2';
+    const url = 'https://www.simplyhired.com/job/0kZxAj4Qs57dsIXfJaTCknyUN5hw_zeL0eLCoEwyP4uZtt8b0DqKfA';
     let scrapedJobDetails: JobDetails[] | null = null;
     try {
         const browser = await Browser.run();

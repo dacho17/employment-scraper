@@ -64,6 +64,10 @@ export default class AdDetailsRouter {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeQreerDetails);
         });
 
+        AdDetailsRouter.router.get('/scrape-simply-hired-details', (req, res) => {
+            AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeSimplyHiredDetails);
+        });
+
         return AdDetailsRouter.router;
     }
 
