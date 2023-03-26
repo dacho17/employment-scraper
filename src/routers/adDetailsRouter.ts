@@ -76,6 +76,10 @@ export default class AdDetailsRouter {
             AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeTybaDetails);
         });
 
+        AdDetailsRouter.router.get('/scrape-we-work-remotely-details', (req, res) => {
+            AdDetailsRouter.scrapeAndRespond(res, scrapers.scrapeWeWorkRemotelyDetails);
+        });
+
         return AdDetailsRouter.router;
     }
 

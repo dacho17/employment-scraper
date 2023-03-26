@@ -1,5 +1,6 @@
 import datefns from 'date-fns';
 import { addHours, addDays, addWeeks, addMonths} from 'date-fns';
+import Constants from '../constants.js';
 import constants from '../constants.js';
 import { AdPostedAgoTimeframe } from '../dataLayer/enums/adPostedAgoTimeframe.js';
 
@@ -25,6 +26,18 @@ export default class Utils {
         }
     
         return new Date(null);
+    }
+
+    static getNumberOfApplicantsWWR(textContainingNofApplicants: string): string {
+        const [numberCandidate, numberCandidateTwo, _] = textContainingNofApplicants.trim().split(constants.WHITESPACE);
+
+        const nOfApplicantsCandidate = parseInt(numberCandidate);
+        const nOfApplicantsCandidateTwo = parseInt(numberCandidateTwo);
+        if (isNaN(nOfApplicantsCandidate) && isNaN(nOfApplicantsCandidateTwo))  return Constants.UNKNOWN_NUMBER_OF_APPLICANTS;
+        if (isNaN(nOfApplicantsCandidate))
+            return nOfApplicantsCandidateTwo.toString();
+
+        return nOfApplicantsCandidateTwo.toString();
     }
 
     static getPostedDate4SimplyHired(textContainingPostedAgo: string): Date {

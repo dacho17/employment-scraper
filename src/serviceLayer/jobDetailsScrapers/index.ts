@@ -15,3 +15,4 @@ export { default as scrapeQreerDetails } from './qreerDetailsScraper.js';
 export { default as scrapeSimplyHiredDetails } from './simplyHiredDetailsScraper.js';
 export { default as scrapeSnaphuntDetails } from './snaphuntDetailsScraper.js';
 export { default as scrapeTybaDetails } from './tybaDetailsScraper.js';
+export { default as scrapeWeWorkRemotelyDetails } from './wwrDetailsScraper.js';

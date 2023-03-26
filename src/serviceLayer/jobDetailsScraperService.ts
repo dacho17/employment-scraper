@@ -33,8 +33,9 @@ async function scrape(scraperFunc) {
     // SimplyHired 'https://www.simplyhired.com/job/0kZxAj4Qs57dsIXfJaTCknyUN5hw_zeL0eLCoEwyP4uZtt8b0DqKfA'
     // Snaphunt 'https://snaphunt.com/jobs/HMQCNANIJZ'
     // Tyba 'https://tyba.com/job/51453087/14/python-developer'
+    // WWR 'https://weworkremotely.com/remote-jobs/trustworthy-full-stack-software-engineer-react-python'
 
-    const url = 'https://tyba.com/job/51453087/14/python-developer';
+    const url = 'https://weworkremotely.com/remote-jobs/trustworthy-full-stack-software-engineer-react-python';
     let scrapedJobDetails: JobDetails[] | null = null;
     try {
         const browser = await Browser.run();

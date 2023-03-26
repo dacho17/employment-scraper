@@ -33,11 +33,11 @@ export default async function scrapeData(page: any, url: string, jobDetails: Job
     jobDetails.isInternship = isNotInternshipElement === null;
 
     // get data from content attribute
-    const requiredSkillsElement = await page.$(Constants.JOB_FLUENT_DETAILS_REQUIRED_SKILLS);
+    const requiredSkillsElement = await page.$(Constants.JOB_FLUENT_DETAILS_REQUIRED_SKILLS_SELECTOR);
     const requiredSkills = await page.evaluate((el, selector) => el.getAttribute(selector), requiredSkillsElement, 'content')
     jobDetails.requiredSkills = requiredSkills.trim();
 
-    const jobDescriptionElement = await page.$(Constants.JOB_FLUENT_DETAILS_JOB_DESCRIPTION);
+    const jobDescriptionElement = await page.$(Constants.JOB_FLUENT_DETAILS_JOB_DESCRIPTION_SELECTOR);
     const jobDescription = await page.evaluate(el => el.textContent, jobDescriptionElement);
     jobDetails.jobDescription = jobDescription.trim();
 

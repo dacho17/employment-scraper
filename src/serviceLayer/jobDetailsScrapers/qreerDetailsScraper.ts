@@ -3,7 +3,7 @@ import { JobDetails } from "../../dataLayer/models/jobDetails"
 import Utils from "../../utils/utils";
 
 export default async function scrapeData(page: any, url: string, jobDetails: JobDetails): Promise<JobDetails> {
-    const registerForm = await page.$(Constants.QREER_DETAILS_REGISTER_FORM_BUTTON);    // check if register form has appeared
+    const registerForm = await page.$(Constants.QREER_DETAILS_REGISTER_FORM_BUTTON_SELECTOR);    // check if register form has appeared
     if (registerForm) {
         await page.evaluate(button => button.click());
     }

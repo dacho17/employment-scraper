@@ -31,7 +31,7 @@ export default async function scrapeData(page: any, url: string, jobDetails: Job
     const details = await page.evaluate(el => el.textContent, detailsElement);
     jobDetails.jobDetails = details.trim();
     
-    const jobDescriptionElement = await page.$(Constants.LN_DETAILS_JOB_DESCRIPTION);
+    const jobDescriptionElement = await page.$(Constants.LN_DETAILS_JOB_DESCRIPTION_SELECTOR);
     const jobDescription = await await page.evaluate(el => el.textContent, jobDescriptionElement);
     jobDetails.jobDescription = jobDescription.trim();
 

@@ -62,6 +62,7 @@ const Constants = {
     WE_WORK_REMOTELY_JOBLINKS_SELECTOR: 'li > a',
     WE_WORK_REMOTELY_JOBLINKS_SELECTOR_TWO: '.jobs > article > ul > li > a',
 
+    // Details scrapers constants start here
     ADZUNA_DETAILS_EXTEND_AD_BUTTON_SELECTOR: '.ui-foreign-click-description-toggle > a',
     ADZUNA_DETAILS_JOB_TITLE_SELECTOR: 'h1',
     ADZUNA_DETAILS_SUBTITLE_SECTION_SELECTOR: 'div > div > table > tbody > tr > td > strong',
@@ -126,8 +127,8 @@ const Constants = {
     JOB_FLUENT_DETAILS_REMOTE_SELECTOR: 'span[data-original-title="Remote"]',
     JOB_FLUENT_DETAILS_TIME_ENGAGEMENT_SELECTOR: 'b[itemprop="employmentType"]',
     JOB_FLUENT_DETAILS_INTERNSHIP_SELECTOR: 'span[data-original-title="No internship"]',
-    JOB_FLUENT_DETAILS_REQUIRED_SKILLS: 'meta[itemprop="skills"]',
-    JOB_FLUENT_DETAILS_JOB_DESCRIPTION: 'div[itemprop="description"]',
+    JOB_FLUENT_DETAILS_REQUIRED_SKILLS_SELECTOR: 'meta[itemprop="skills"]',
+    JOB_FLUENT_DETAILS_JOB_DESCRIPTION_SELECTOR: 'div[itemprop="description"]',
 
     JOBS_IN_NETWORK_DETAILS_JOB_TITLE_SELECTOR: '.pub-job-title',
     JOBS_IN_NETWORK_DETAILS_JOB_DETAILS_SELECTOR: '.pub-job-details-list',
@@ -139,7 +140,7 @@ const Constants = {
     LN_DETAILS_POSTED_AGO_SELECTOR: '.posted-time-ago__text',
     LN_DETAILS_NUMBER_OF_APPLICANTS_SELECTOR: '.num-applicants__caption',
     LN_DETAILS_JOB_DETAILS_SELECTOR: '.description__job-criteria-list',
-    LN_DETAILS_JOB_DESCRIPTION: '.description__text',
+    LN_DETAILS_JOB_DESCRIPTION_SELECTOR: '.description__text',
 
     NO_FLUFF_DETAILS_JOB_TITLE_SELECTOR: '.posting-details-description > h1',
     NO_FLUFF_DETAILS_SALARY_SELECTOR: '.salary > h4',
@@ -164,7 +165,7 @@ const Constants = {
     QREER_DETAILS_COMPANY_LOCATION_SELECTOR: '.company-info > div',
     QREER_DETAILS_COMPANY_INFO_SELECTOR: '.company-info',
     QREER_DETAILS_JOB_DETAILS_SELECTOR: '.job-info-block',
-    QREER_DETAILS_REGISTER_FORM_BUTTON: '#qreerRegisterSuggClose',
+    QREER_DETAILS_REGISTER_FORM_BUTTON_SELECTOR: '#qreerRegisterSuggClose',
 
     SIMPLY_HIRED_DETAILS_JOB_TITLE_SELECTOR: 'h2[data-testid="viewJobTitle"]',
     SIMPLY_HIRED_DETAILS_COMPANY_NAME_SELECTOR: 'span[data-testid="viewJobCompanyName"] > span > span',
@@ -186,6 +187,15 @@ const Constants = {
     TYBA_DETAILS_COMPANY_NAME_AND_LINK_SELECTOR: '.at-company > a',
     TYBA_DETAILS_JOB_DETAILS_SELECTOR: '.content-description',
     TYBA_DETAILS_JOB_DESCRIPTION_SELECTOR: '.job-content',
+
+    WE_WORK_REMOTELY_DETAIL_JOB_TITLE_SELECTOR: '.listing-header-container > h1',
+    WE_WORK_REMOTELY_POSTED_DATE_SELECTOR: '.listing-header-container > h3:nth-child(1) > time',
+    WE_WORK_REMOTELY_NUMBER_OF_APPLICANTS_SELECTOR: '.listing-header-container > h3:nth-child(2)',
+    WE_WORK_REMOTELY_JOB_DETAILS_SELECTOR: '.listing-header-container',
+    WE_WORK_REMOTELY_JOB_DESCRIPTION_SELECTOR: '.listing-container',
+    WE_WORK_REMOTELY_COMPANY_NAME_AND_LINK_SELECTOR: '.company-card > h2 > a',
+    WE_WORK_REMOTELY_COMPANY_LOCATION_SELECTOR: '.company-card > h3',
+    // Details scrapers constants end here
 
     SIMPLY_HIRED_NAVIGATION_BUTTONS_SELECTOR: 'nav[role="navigation"] > a',
 
@@ -219,6 +229,7 @@ const Constants = {
     NO_APPLICANTS: 'No applicants yet',
     UNDISCLOSED_SALARY: 'Undisclosed',
     UNDEFINED_FIELD_OF_WORK: 'The field of work is undefined',
+    UNKNOWN_NUMBER_OF_APPLICANTS: 'Unknown number of applicants',
 
     ADS_SCRAPED_SUCCESSFULLY: 'Ads scraped and stored into the database successfully!',
     NO_ADS_FOUND_TO_BE_SCRAPED_MESSAGE: 'No ads have been found on the page given your query.',
